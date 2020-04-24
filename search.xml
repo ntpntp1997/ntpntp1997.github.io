@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/04/24/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Hướng dẫn làm một trang blog cá nhân bằng Hexo</title>
+    <url>/2020/04/24/Huong-dan-lam-mot-trang-blog-ca-nhan-bang-Hexo/</url>
+    <content><![CDATA[<p>Hôm nay mình sẽ hướng dẫn các bạn cách làm một trang blog cá nhân bằng Static website generator.<br>Bài viết này mình sẽ sử dụng Hexo và GitHub làm hướng dẫn và deploy.</p>
+<h3 id="Yeu-cau"><a href="#Yeu-cau" class="headerlink" title="Yêu cầu"></a>Yêu cầu</h3><ul>
+<li>Nodejs 8 trở lên. Bạn có thể cài nodejs tại <a href="https://nodejs.org" target="_blank" rel="noopener">https://nodejs.org</a> và tìm các phiên bản phù hợp. mình đang dùng phiên bản Nodejs 12</li>
+</ul>
+<h2 id="Cai-dat"><a href="#Cai-dat" class="headerlink" title="Cài đặt"></a>Cài đặt</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tao-blog-run-local"><a href="#Tao-blog-run-local" class="headerlink" title="Tạo blog run local"></a>Tạo blog run local</h3><p>Tạo một thư mục chứa blog của bạn, tại thư mục này chạy lệnh sau để khởi tạo một blog hexo:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ <span class="built_in">cd</span> &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure>
+
+<p>Chạy blog ở local:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>Mở trình duyệt và truy cập địa chỉ <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> để xem kết quả!</p>
+<h3 id="Viet-bai-va-public"><a href="#Viet-bai-va-public" class="headerlink" title="Viết bài và public"></a>Viết bài và public</h3><p>Phần liên quan nhất tới viết blog, viết ở đâu, ra sao? Hexo hỗ trợ viết bài với định dạng markdown. Khi tạo bài viết mới bằng lệnh:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"hello world"</span></span><br></pre></td></tr></table></figure>
+
+<p>Hexo sẽ sinh ra 1 file mang tên hello-world.md ở thư mục /source/_post và thư mục chứa assest của post đó là /source/_post/hello-world/.<br>Để có thể viết bài thì bạn chỉ cần mở file .md đó bằng bất cứ trình soạn thảo markdown nào cũng được hoặc là notepad++ =))<br>Bạn nên xem qua hướng dẫn trên trang chủ của hexo về format viết bài.<br>Bản chất thì hexo sẽ sinh ra file .html tĩnh tương ứng với bài viết .md của bạn.</p>
+<h3 id="Hexo-theme"><a href="#Hexo-theme" class="headerlink" title="Hexo theme"></a>Hexo theme</h3><p>Bất cứ Blog framework nào cũng sẽ hỗ trợ theme cho bạn lựa chọn. Hexo cũng vậy, có một tá theme ở đây. Hầu như các theme ở đấy đều miễn phí và mã nguồn mỡ trên github.</p>
+<p>Cài đặt theme ra sao? Thư mục theme ở /thư mục gốc/themes. trong thư mục này mỗi thư mục con là một theme. Vậy nên để cài đặt theme mới thì việc đầu tiên là bạn phải clone code theme đó vào thư mục themes của Hexo. Ví dụ mình sử dụng theme cactus thì thư mục sẽ như sau:</p>
+<p>Cấu hình để Hexo nhận theme vừa tải về như sau: giả sử bạn vừa tải về theme cactus. Bây giờ mở file _config.yml trong thư mục blog ra. Sử dòng cấu hình theme thành như sau:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:&#x2F;&#x2F;hexo.io&#x2F;plugins&#x2F;</span><br><span class="line">## Themes: https:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;</span><br><span class="line">#theme: landscape</span><br><span class="line">theme: cactus</span><br></pre></td></tr></table></figure>
+
+<p>Ok. Chạy lại hexo server để xem kết quả!<br>Lưu ý, một điều rất hay ở đây là hexo tách mỗi theme ra thành một project riêng, có package.json riêng, có _config.yaml riêng vì thế rất rõ ràng và tiện lợi, nếu bạn cài đặt theme khác thì chú ý tài liệu của theme để cấu hình theme cho đúng nhé.</p>
+<h3 id="Dang-ky-Github-Pages"><a href="#Dang-ky-Github-Pages" class="headerlink" title="Đăng ký Github Pages"></a>Đăng ký Github Pages</h3><p>Đăng ký Github Pages cực kỳ đơn giản, bạn đăng ký một tài khoản github vd: ntpntp1997. Thì blog của bạn sẽ có địa chỉ truy cập là <a href="http://ntpntp1997.github.io">http://ntpntp1997.github.io</a>. Chi tiết xem hướng dẫn trên trang chủ Github Pages.</p>
+<p>Sinh web tĩnh và deploy lên github pages<br>Giả sử bạn đã đăng ký được github page. Bây giờ ta sẽ tạo web tĩnh từ Hexo và deploy lên Github Pages.<br>Hexo cung cấp một file cấu hình _config.yml ở thư mục gốc của blog. Tại thư mục này ta cấu hình để deploy như sau:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repo: https:&#x2F;&#x2F;github.com&#x2F;ntpntp1997&#x2F;ntpntp1997.github.io.git</span><br></pre></td></tr></table></figure>
+
+<p>Ta chỉ ra rằng sẽ deploy bằng git và nơi sẽ deploy là repo <a href="https://github.com/ntpntp1997/ntpntp1997.github.io.git" target="_blank" rel="noopener">https://github.com/ntpntp1997/ntpntp1997.github.io.git</a><br>Cài đặt thư viện hexo-deployer-git để có thể deploy:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ npm install hexo-deployer-git -save</span><br></pre></td></tr></table></figure>
+
+<p>Cuối cùng thực hiện deploy bằng lệnh sau:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>Lúc này Hexo sẽ sinh web tĩnh ra và push lên repo của chúng ta đa đăng ký. Xong, bây giờ blog của chúng ta đã có trên github page và có thể truy cập được rồi.<br>Rất đơn giản phải không!</p>
+<p>Nên nhớ bạn sẽ phải chạy lệnh generate lại sau mỗi khi thêm bài viết hay chỉnh sửa theme lại để hexo tạo ra các file web tĩnh mới và deploy lại, nó sẽ như thế này:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate // generate lại static web</span><br><span class="line">$ hexo deploy</span><br><span class="line">// hoặc ngắn gọn hơn là</span><br><span class="line">$ hexo generate -d</span><br></pre></td></tr></table></figure>
+
+<p>Vậy là bài viết của mình đã xong rồi. Trong các bài viết sau mình sẽ hướng dẫn các bạn cách làm 1 theme website cho Hexo. Nếu mọi người có hứng thú với các framework static website generator khác mình sẽ làm bài viết về các framework đó cho các bạn :)))))</p>
+<p>Trang blog này của mình cũng sử dụng hexo để làm. Cám ơn các bạn đã theo dõi bài viết của mình !!!</p>
+]]></content>
+  </entry>
+</search>
