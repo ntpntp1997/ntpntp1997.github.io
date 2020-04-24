@@ -4236,3 +4236,47 @@ pre .xml .cdata {
   object-fit: cover;
   height: 100px;
 }
+.started-content {
+  padding-left: 30px;
+  padding-right: 30px;
+  display: block;
+  text-align: center;
+  position: relative;
+}
+.started-content .h-title,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  /* color: #141414; */
+}
+.started-content .h-title {
+  font-size: 68px;
+  line-height: 88px;
+  font-family: 'Roboto Mono';
+  color: #141414;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 10px 0 5px;
+  word-break: break-word;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+}
+.started-content .h-subtitles {
+  /* height: 24px; */
+}
+@media (min-width: 180px) {
+  .glitch-effect,
+  .glitch-effect-white {
+    position: relative;
+  }
+}
+@media (max-width: 580px) {
+  .started-content .h-title {
+    font-size: 42px;
+    line-height: 62px;
+  }
+}
