@@ -211,7 +211,7 @@ fjs.parentNode.insertBefore(js, fjs);
     <div class="post-content markdown-body">
       <p>Hôm nay mình sẽ hướng dẫn các bạn cách làm một trang blog cá nhân bằng Static website generator.<br>Bài viết này mình sẽ sử dụng Hexo và GitHub làm hướng dẫn và deploy.</p>
 <h3 id="Yeu-cau"><a href="#Yeu-cau" class="headerlink" title="Yêu cầu"></a>Yêu cầu</h3><ul>
-<li>Nodejs 8 trở lên. Bạn có thể cài nodejs tại <a href="https://nodejs.org" target="_blank" rel="noopener">https://nodejs.org</a> và tìm các phiên bản phù hợp. mình đang dùng phiên bản Nodejs 12</li>
+<li>Nodejs 8 trở lên. Bạn có thể cài nodejs tại <a href="https://nodejs.org" target="_blank" rel="noopener">https://nodejs.org</a> và tìm các phiên bản phù hợp. Mình đang dùng phiên bản Nodejs 12</li>
 </ul>
 <h2 id="Cai-dat"><a href="#Cai-dat" class="headerlink" title="Cài đặt"></a>Cài đặt</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
@@ -226,8 +226,8 @@ fjs.parentNode.insertBefore(js, fjs);
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"hello world"</span></span><br></pre></td></tr></table></figure>
 
 <p>Hexo sẽ sinh ra 1 file mang tên hello-world.md ở thư mục /source/_post và thư mục chứa assest của post đó là /source/_post/hello-world/.<br>Để có thể viết bài thì bạn chỉ cần mở file .md đó bằng bất cứ trình soạn thảo markdown nào cũng được hoặc là notepad++ =))<br>Bạn nên xem qua hướng dẫn trên trang chủ của hexo về format viết bài.<br>Bản chất thì hexo sẽ sinh ra file .html tĩnh tương ứng với bài viết .md của bạn.</p>
-<h3 id="Hexo-theme"><a href="#Hexo-theme" class="headerlink" title="Hexo theme"></a>Hexo theme</h3><p>Bất cứ Blog framework nào cũng sẽ hỗ trợ theme cho bạn lựa chọn. Hexo cũng vậy, có một tá theme ở đây. Hầu như các theme ở đấy đều miễn phí và mã nguồn mỡ trên github.</p>
-<p>Cài đặt theme ra sao? Thư mục theme ở /thư mục gốc/themes. trong thư mục này mỗi thư mục con là một theme. Vậy nên để cài đặt theme mới thì việc đầu tiên là bạn phải clone code theme đó vào thư mục themes của Hexo. Ví dụ mình sử dụng theme cactus thì thư mục sẽ như sau:</p>
+<h3 id="Hexo-theme"><a href="#Hexo-theme" class="headerlink" title="Hexo theme"></a>Hexo theme</h3><p>Bất cứ Blog framework nào cũng sẽ hỗ trợ theme cho bạn lựa chọn. Hexo cũng vậy, có một tá theme ở đây. Hầu như các theme ở đấy đều miễn phí và mã nguồn mở trên github.</p>
+<p>Cài đặt theme ra sao? Thư mục theme ở /thư mục gốc/themes. Trong thư mục này mỗi thư mục con là một theme. Vậy nên để cài đặt theme mới thì việc đầu tiên là bạn phải clone code theme đó vào thư mục themes của Hexo. Ví dụ mình sử dụng theme cactus thì thư mục sẽ như sau:</p>
 <p>Cấu hình để Hexo nhận theme vừa tải về như sau: giả sử bạn vừa tải về theme cactus. Bây giờ mở file _config.yml trong thư mục blog ra. Sử dòng cấu hình theme thành như sau:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:&#x2F;&#x2F;hexo.io&#x2F;plugins&#x2F;</span><br><span class="line">## Themes: https:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;</span><br><span class="line">#theme: landscape</span><br><span class="line">theme: cactus</span><br></pre></td></tr></table></figure>
 
