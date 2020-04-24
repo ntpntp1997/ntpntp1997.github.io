@@ -1,6 +1,7 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html class="no-js" lang="zh-CN">
-<head>
+  <head>
+    <link rel="preload" />
     <!--[if lte IE 9]>
 <meta http-equiv="refresh" content="0;url=https://ntpntp1997.github.io/warn.html">
 <![endif]-->
@@ -41,8 +42,7 @@
         });
     </script>
 
-
-    
+ 
 <!-- 自动广告 -->
 <script
   data-ad-client="ca-pub-8405511385846799"
@@ -56,8 +56,7 @@
   });
 </script> -->
 
-
-    
+ 
     
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="//www.googletagmanager.com/gtag/js?id=UA-164523547-1"></script>
@@ -71,9 +70,9 @@
     <!-- put your likes here. -->
 
 
-<meta name="generator" content="Hexo 4.2.0"></head>
-<body>
-<div id="nav">
+  <meta name="generator" content="Hexo 4.2.0"></head>
+  <body>
+    <div id="nav">
   <nav class="nav-menu">
     <a class="site-name current" href="/" title="Blog"
       >Blog</a
@@ -106,17 +105,16 @@
     
   </nav>
 </div>
-
-<div class="nav-user">
+ <div class="nav-user">
   <a class="btn-search" href="#"><i class="fa fa-search"></i></a>
   <a class="btn-read-mode" href="#"><i class="fa fa-sun-o"></i></a>
   <!-- <a class="btn-sns-qr" href="javascript:"><i class="fa fa-telegram"></i></a> -->
 </div>
 
-<div id="wrapper" class="clearfix">
-    <div id="body">
+    <div id="wrapper" class="clearfix">
+      <div id="body">
         <div class="main" id="main">
-            <div id="cover">
+          <div id="cover">
     <div class="cover-img"></div>
     <div class="cover-info">
         
@@ -147,8 +145,7 @@
         </div>
     </div>
 </div>
-
-            <div class="page-title">
+ <div class="page-title">
     <ul>
         <li class="active">
             <a href="/" data-name="Recent Posts">Recent Posts</a>
@@ -223,9 +220,11 @@
 </div>
 
 
-        </div><!-- end #main-->
-    </div><!-- end #body -->
-    <footer class="footer">
+        </div>
+        <!-- end #main-->
+      </div>
+      <!-- end #body -->
+      <footer class="footer">
     <div class="footer-inner" style="text-align: left">
         <p>
             <a href="/about"  title="About">About</a>&nbsp;&nbsp<em>·</em>&nbsp;&nbsp
@@ -247,50 +246,54 @@
 <script src="/js/SimpleCore.js"></script>
 
 
-</div>
-<!-- search pop -->
-<div class="popup search-popup local-search-popup">
-    <div class="local-search-header clearfix">
+    </div>
+    <!-- search pop -->
+    <div class="popup search-popup local-search-popup">
+      <div class="local-search-header clearfix">
         <span class="search-icon">
-            <i class="fa fa-search"></i>
+          <i class="fa fa-search"></i>
         </span>
         <span class="popup-btn-close">
-            <i class="fa fa-times-circle"></i>
+          <i class="fa fa-times-circle"></i>
         </span>
         <div class="local-search-input-wrapper">
-            <input id="local-search-input"
-                   spellcheck="false"
-                   type="text"
-                   autocomplete="off"
-                   placeholder="Input query keywords here..."/>
+          <input
+            id="local-search-input"
+            spellcheck="false"
+            type="text"
+            autocomplete="off"
+            placeholder="Input query keywords here..."
+          />
         </div>
+      </div>
+      <div id="local-search-result"></div>
     </div>
-    <div id="local-search-result"></div>
-</div>
-<div class="fixed-btn">
-    <a class="btn-gotop" href="javascript:"> <i class="fa fa-angle-up"></i></a>
-</div>
-<script>
-    $(function () {
-        var jsi_config = {
-            buildingTime: '01/20/2018',
-            current: $('.post-tags').length > 0 ? 'post' : 'archive',
-            snsQRCode: '/images/sns-qrcode.png',
-            donateImg: '/images/donate-qr.png',
-            localSearch: { dbPath: '' },
-            readMode: 'day'
-        };
-        
-            jsi_config.localSearch = {
-                dbPath: '/search.json',
-                trigger: 'auto',
-                topN: '1',
-                unescape: 'false'
-            }
-        
-        SimpleCore.init(jsi_config);
-        
-    });
-</script>
-<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BGIF-nevndimBG_qolCIfvKkPCEB1lX8orFiANy1SyN09kDtwmdEb_zer0UqBSwRWcCoWjOM7ObLl6zMqXl58YA');</script></body>
+    <div class="fixed-btn">
+      <a class="btn-gotop" href="javascript:">
+        <i class="fa fa-angle-up"></i
+      ></a>
+    </div>
+    <script>
+      $(function () {
+          var jsi_config = {
+              buildingTime: '01/20/2018',
+              current: $('.post-tags').length > 0 ? 'post' : 'archive',
+            //   snsQRCode: '/images/sns-qrcode.png',
+            //   donateImg: '/images/donate-qr.png',
+              localSearch: { dbPath: '' },
+              readMode: 'day'
+          };
+          
+              jsi_config.localSearch = {
+                  dbPath: '/search.json',
+                  trigger: 'auto',
+                  topN: '1',
+                  unescape: 'false'
+              }
+          
+          SimpleCore.init(jsi_config);
+        //   
+      });
+    </script>
+  <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BGIF-nevndimBG_qolCIfvKkPCEB1lX8orFiANy1SyN09kDtwmdEb_zer0UqBSwRWcCoWjOM7ObLl6zMqXl58YA');</script></body>
 </html>
