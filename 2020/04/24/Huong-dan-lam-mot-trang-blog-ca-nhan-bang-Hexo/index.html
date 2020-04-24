@@ -64,7 +64,7 @@
         <div class="content markdown">
             <p>Hôm nay mình sẽ hướng dẫn các bạn cách làm một trang blog cá nhân bằng Static website generator.<br>Bài viết này mình sẽ sử dụng Hexo và GitHub làm hướng dẫn và deploy.</p>
 <h3 id="Yeu-cau"><a href="#Yeu-cau" class="headerlink" title="Yêu cầu"></a>Yêu cầu</h3><ul>
-<li>nodejs 8 trở lên</li>
+<li>Nodejs 8 trở lên. Bạn có thể cài nodejs tại <a href="https://nodejs.org" target="_blank" rel="noopener">https://nodejs.org</a> và tìm các phiên bản phù hợp. mình đang dùng phiên bản Nodejs 12</li>
 </ul>
 <h2 id="Cai-dat"><a href="#Cai-dat" class="headerlink" title="Cài đặt"></a>Cài đặt</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
 
@@ -85,17 +85,22 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Extensions</span><br><span class="line">## Plugins: https:&#x2F;&#x2F;hexo.io&#x2F;plugins&#x2F;</span><br><span class="line">## Themes: https:&#x2F;&#x2F;hexo.io&#x2F;themes&#x2F;</span><br><span class="line">#theme: landscape</span><br><span class="line">theme: cactus</span><br></pre></td></tr></table></figure>
 
 <p>Ok. Chạy lại hexo server để xem kết quả!<br>Lưu ý, một điều rất hay ở đây là hexo tách mỗi theme ra thành một project riêng, có package.json riêng, có _config.yaml riêng vì thế rất rõ ràng và tiện lợi, nếu bạn cài đặt theme khác thì chú ý tài liệu của theme để cấu hình theme cho đúng nhé.</p>
-<h3 id="Dang-ky-Github-Pages"><a href="#Dang-ky-Github-Pages" class="headerlink" title="Đăng ký Github Pages"></a>Đăng ký Github Pages</h3><p>Đăng ký Github Pages cực kỳ đơn giản, bạn đăng ký một tài khoản github vd: developerkeep. Thì blog của bạn sẽ có địa chỉ truy cập là <a href="http://developerkeep.github.io" target="_blank" rel="noopener">http://developerkeep.github.io</a>. Chi tiết xem hướng dẫn trên trang chủ Github Pages.</p>
+<h3 id="Dang-ky-Github-Pages"><a href="#Dang-ky-Github-Pages" class="headerlink" title="Đăng ký Github Pages"></a>Đăng ký Github Pages</h3><p>Đăng ký Github Pages cực kỳ đơn giản, bạn đăng ký một tài khoản github vd: ntpntp1997. Thì blog của bạn sẽ có địa chỉ truy cập là <a href="http://ntpntp1997.github.io">http://ntpntp1997.github.io</a>. Chi tiết xem hướng dẫn trên trang chủ Github Pages.</p>
 <p>Sinh web tĩnh và deploy lên github pages<br>Giả sử bạn đã đăng ký được github page. Bây giờ ta sẽ tạo web tĩnh từ Hexo và deploy lên Github Pages.<br>Hexo cung cấp một file cấu hình _config.yml ở thư mục gốc của blog. Tại thư mục này ta cấu hình để deploy như sau:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repo: https:&#x2F;&#x2F;github.com&#x2F;developerkeep&#x2F;developerkeep.github.io.git</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">    type: git</span><br><span class="line">    repo: https:&#x2F;&#x2F;github.com&#x2F;ntpntp1997&#x2F;ntpntp1997.github.io.git</span><br></pre></td></tr></table></figure>
 
-<p>Ta chỉ ra rằng sẽ deploy bằng git và nơi sẽ deploy là repo <a href="https://github.com/developerkeep/developerkeep.github.io.git" target="_blank" rel="noopener">https://github.com/developerkeep/developerkeep.github.io.git</a><br>Cài đặt thư viện hexo-deployer-git để có thể deploy:</p>
+<p>Ta chỉ ra rằng sẽ deploy bằng git và nơi sẽ deploy là repo <a href="https://github.com/ntpntp1997/ntpntp1997.github.io.git" target="_blank" rel="noopener">https://github.com/ntpntp1997/ntpntp1997.github.io.git</a><br>Cài đặt thư viện hexo-deployer-git để có thể deploy:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git -save</span><br></pre></td></tr></table></figure>
 
 <p>Cuối cùng thực hiện deploy bằng lệnh sau:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
 <p>Lúc này Hexo sẽ sinh web tĩnh ra và push lên repo của chúng ta đa đăng ký. Xong, bây giờ blog của chúng ta đã có trên github page và có thể truy cập được rồi.<br>Rất đơn giản phải không!</p>
+<p>Nên nhớ bạn sẽ phải chạy lệnh generate lại sau mỗi khi thêm bài viết hay chỉnh sửa theme lại để hexo tạo ra các file web tĩnh mới và deploy lại, nó sẽ như thế này:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate // generate lại static web</span><br><span class="line">$ hexo deploy</span><br><span class="line">// hoặc ngắn gọn hơn là</span><br><span class="line">$ hexo generate -d</span><br></pre></td></tr></table></figure>
+
+<p>Vậy là bài viết của mình đã xong rồi. Trong các bài viết sau mình sẽ hướng dẫn các bạn cách làm 1 theme website cho Hexo. Nếu mọi người có hứng thú với các framework static website generator khác mình sẽ làm bài viết về các framework đó cho các bạn :)))))</p>
+<p>Trang blog này của mình cũng sử dụng hexo để làm. Cám ơn các bạn đã theo dõi bài viết của mình !!!</p>
 
             <!--[if lt IE 9]><script>document.createElement('audio');</script><![endif]-->
             <audio id="audio" loop="1" preload="auto" controls="controls" data-autoplay="false">
