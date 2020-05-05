@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html ⚡>
+  <head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://ntpntp1997.github.io/Huong-dan-xay-dung-gRPC-server-bang-typescript-don-gian/" >
+    <title>Hướng dẫn xây dựng gRPC server bằng typescript đơn giản - Blog Developer</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+    
+    <meta property="og:title" content="Hướng dẫn xây dựng gRPC server bằng typescript đơn giản">
+	<meta property="og:type" content="article">
+	<meta property="og:url" content="https://ntpntp1997.github.io/Huong-dan-xay-dung-gRPC-server-bang-typescript-don-gian/">
+	
+		<meta property="og:image" content="https://i.imgur.com/bsvIC1U.png">
+	
+	<meta property="og:site_name" content="Blog Developer">
+	
+		<meta property="og:description" content="Hexo được tạo ra bằng Node.js và với mục đích chính dùng cho trang blog. Giống với rất nhiều static site generators khác, bạn cũng sẽ soạn thảo nội dung với markdown. Template mặc định được Hexo sử dụng chính là Swig. Swig không còn xa lạ gì đối với một lập trình viên JS. Tuy nhiên bạn cũng có thể sử dụng một template engine khác nếu muốn, Hexo cho phép bạn làm được điều này. So với Jekyll hoặc Hugo thì Hexo có đôi chút phức tạp hơn.">
+	
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="Blog Developer">
+	<meta name="twitter:url" content="https://ntpntp1997.github.io/Huong-dan-xay-dung-gRPC-server-bang-typescript-don-gian/">
+	<meta name="twitter:title" content="Hướng dẫn xây dựng gRPC server bằng typescript đơn giản - Blog Developer">
+	
+		<meta name="twitter:description" content="Hexo được tạo ra bằng Node.js và với mục đích chính dùng cho trang blog. Giống với rất nhiều static site generators khác, bạn cũng sẽ soạn thảo nội dung với markdown. Template mặc định được Hexo sử dụng chính là Swig. Swig không còn xa lạ gì đối với một lập trình viên JS. Tuy nhiên bạn cũng có thể sử dụng một template engine khác nếu muốn, Hexo cho phép bạn làm được điều này. So với Jekyll hoặc Hugo thì Hexo có đôi chút phức tạp hơn.">
+	
+    
+    	<meta name="twitter:image" content="https://i.imgur.com/bsvIC1U.png">
+	
+	
+	
+    
+    <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+    <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+    <script async custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js"></script>
+    <!--
+  	<script async custom-element="amp-social-share" src="https://cdn.ampproject.org/v0/amp-social-share-0.1.js"></script>
+    -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "BlogPosting",
+			"headline": "Hướng dẫn xây dựng gRPC server bằng typescript đơn giản",
+			
+			"description": "Hexo được tạo ra bằng Node.js và với mục đích chính dùng cho trang blog. Giống với rất nhiều static site generators khác, bạn cũng sẽ soạn thảo nội dung với markdown. Template mặc định được Hexo sử dụng chính là Swig. Swig không còn xa lạ gì đối với một lập trình viên JS. Tuy nhiên bạn cũng có thể sử dụng một template engine khác nếu muốn, Hexo cho phép bạn làm được điều này. So với Jekyll hoặc Hugo thì Hexo có đôi chút phức tạp hơn.",
+			
+			"mainEntityOfPage":{
+			    "@type":"WebPage",
+			    "@id":"https://ntpntp1997.github.io/Huong-dan-xay-dung-gRPC-server-bang-typescript-don-gian/"
+			},
+			"datePublished": "2020-04-25T05:57:55.861Z",
+			"dateModified": "2020-05-05T10:50:48.083Z",
+			
+			"image": {
+				"@type": "ImageObject",
+				"url": "https://i.imgur.com/bsvIC1U.png",
+				"width" : "2720",
+				"height" : "1496"
+			},
+			
+			"author": {
+			    "@type": "Person",
+			    "name": "Thanh Phuong"
+			},
+			"publisher": {
+			    "@type": "Organization",
+			    "name": "Blog Developer"
+			    
+			    ,
+			    "logo": {
+			      "@type": "ImageObject",
+			      "url": "https://ntpntp1997.github.io/amp-dist/sample/sample-logo.png",
+			      "width": 600,
+			      "height": 60
+			    }
+			    
+			}
+		}
+	</script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	
+	<style amp-custom>
+		
+abbr,
+acronym,
+address,
+applet,
+big,
+blockquote,
+body,
+caption,
+cite,
+code,
+dd,
+del,
+dfn,
+div,
+dl,
+dt,
+em,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+html,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+object,
+ol,
+p,
+pre,
+q,
+s,
+samp,
+small,
+span,
+strike,
+strong,
+sub,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr,
+tt,
+ul,
+var {
+  border: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+abbr {
+  cursor: help;
+  border-bottom: 1px dotted;
+  font-variant: normal;
+}
+acronym {
+  border-bottom: 1px dotted;
+  font-variant: normal;
+}
+body {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  background: #fff;
+  color: #2d3d40;
+  font-family: sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 2rem;
+  text-rendering: optimizelegibility;
+}
+button::-moz-focus-inner,
+input::-moz-focus-inner,
+figure.highlight td,
+.post .entry-content figure.highlight th {
+  border: 0;
+  padding: 0;
+}
+caption,
+table,
+td,
+th {
+  vertical-align: middle;
+}
+caption,
+td,
+th,
+.table-align-left {
+  text-align: left;
+}
+del {
+  text-decoration: line-through;
+}
+html {
+  font-size: 14px;
+}
+:root sub,
+:root sup {
+  vertical-align: baseline;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+a {
+  color: #e91e63;
+  text-decoration: none;
+  -webkit-transition: 0.7s;
+  -ms-transition: 0.7s;
+  -moz-transition: 0.7s;
+  -o-transition: 0.7s;
+  -webkit-transition: 0.7s;
+  -moz-transition: 0.7s;
+  -o-transition: 0.7s;
+  -ms-transition: 0.7s;
+  transition: 0.7s;
+  border: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+a img {
+  border: none;
+}
+a:hover {
+  -webkit-transition: 0.2s;
+  -ms-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  -ms-transition: 0.2s;
+  transition: 0.2s;
+  color: #930e3b;
+}
+@media (min-width: 481px) {
+  html {
+    font-size: 16px;
+  }
+}
+@media (min-width: 0px) and (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+}
+.clearfix:after {
+  clear: both;
+  visibility: hidden;
+  content: ".";
+  display: block;
+  height: 0;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.circle {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.thumbImg-w {
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+.thumbImg {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.__web-inspector-hide-shortcut__ {
+  visibility: hidden ;
+}
+button {
+  -webkit-box-align: start;
+  -moz-box-align: start;
+  -o-box-align: start;
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  text-align: center;
+  cursor: default;
+  color: buttontext;
+  background-color: buttonface;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 2px 6px 3px;
+  border-width: 2px;
+  border-style: outset;
+  border-color: buttonface;
+  -webkit-border-image: initial;
+  -moz-border-image: initial;
+  -o-border-image: initial;
+  border-image: initial;
+  text-rendering: auto;
+  color: initial;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  margin: 0em 0em 0em 0em;
+  font: 11px system-ui;
+  -webkit-writing-mode: horizontal-tb;
+  -webkit-appearance: button;
+}
+.hamburger {
+  display: inline-block;
+  background-color: transparent;
+  background-image: url("data:image/svg+xmlutf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-3 -6 24 24\"><path fill=\"#4A4A4A\" d=\"M0 12h18v-2H0v2M0 7h18V5H0v2M0 0v2h18V0H0\"/></svg>");
+  background-repeat: no-repeat;
+  -webkit-background-size: 30px 24px;
+  -moz-background-size: 30px 24px;
+  background-size: 30px 24px;
+  background-position: center center;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  -webkit-align-self: center;
+  align-self: center;
+  -ms-flex-item-align: center;
+}
+.nav ul:after {
+  clear: both;
+  visibility: hidden;
+}
+.nav,
+.nav-icon {
+  position: relative;
+}
+.nav ul {
+  display: block;
+}
+.nav ul li {
+  display: block;
+}
+.nav ul li a {
+  display: block;
+}
+.tab {
+  position: relative;
+  color: #424242;
+  padding: 6px;
+  margin: 0 4px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 400;
+  -webkit-transition: 0.1s ease color;
+  -webkit-transition: 0.1s ease color;
+  -moz-transition: 0.1s ease color;
+  -o-transition: 0.1s ease color;
+  -ms-transition: 0.1s ease color;
+  transition: 0.1s ease color;
+}
+amp-sidebar {
+  width: 200px;
+}
+amp-sidebar ul {
+  padding: 10px 0;
+}
+amp-sidebar li a {
+  display: block;
+  padding: 10px 20px;
+}
+header {
+  height: 60px;
+  background-color: #222f31;
+  -webkit-box-shadow: 0 -1px 0 #3c5155 inset, 0 -3px 0 #1e292b inset;
+  box-shadow: 0 -1px 0 #3c5155 inset, 0 -3px 0 #1e292b inset;
+  -webkit-box-shadow: 0 -1px 0 #3c5155 inset, 0 -3px 0 #1e292b inset;
+}
+header .header-title a {
+  padding: 0 0 0 20px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  color: #fff;
+  letter-spacing: 0.2em;
+}
+header .nav-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -o-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+header .left-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  -o-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  font-size: 20px;
+  margin-left: 0;
+  font-weight: 300;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-box-pack: start;
+  -moz-box-pack: start;
+  -o-box-pack: start;
+  -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -o-box-flex: 1;
+  box-flex: 1;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  text-align: left;
+  width: auto;
+  font-size: 15px;
+}
+header .right {
+  font-size: 15px;
+}
+header .alt {
+  padding: 0;
+  text-align: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  -webkit-box-align: stretch;
+  -moz-box-align: stretch;
+  -o-box-align: stretch;
+  -ms-flex-align: stretch;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.blog-title a {
+  position: relative;
+}
+button {
+  -webkit-box-align: start;
+  -moz-box-align: start;
+  -o-box-align: start;
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  text-align: center;
+  cursor: default;
+  color: buttontext;
+  background-color: buttonface;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 2px 6px 3px;
+  border-width: 2px;
+  border-style: outset;
+  border-color: buttonface;
+  -webkit-border-image: initial;
+  -moz-border-image: initial;
+  -o-border-image: initial;
+  border-image: initial;
+  text-rendering: auto;
+  color: initial;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  margin: 0em 0em 0em 0em;
+  font: 11px system-ui;
+  -webkit-writing-mode: horizontal-tb;
+  -webkit-appearance: button;
+}
+.__web-inspector-hide-shortcut__ {
+  visibility: hidden ;
+}
+.hamburger {
+  display: inline-block;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"-3 -6 24 24\"><path fill=\"#FFF\" d=\"M0 12h18v-2H0v2M0 7h18V5H0v2M0 0v2h18V0H0\"/></svg>");
+  background-repeat: no-repeat;
+  -webkit-background-size: 30px 24px;
+  -moz-background-size: 30px 24px;
+  background-size: 30px 24px;
+  background-position: center center;
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  -webkit-align-self: center;
+  align-self: center;
+  -ms-flex-item-align: center;
+}
+.tab {
+  position: relative;
+  color: #2d3d40;
+  padding: 6px;
+  margin: 0 4px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 400;
+  -webkit-transition: 0.1s ease color;
+  -webkit-transition: 0.1s ease color;
+  -moz-transition: 0.1s ease color;
+  -o-transition: 0.1s ease color;
+  -ms-transition: 0.1s ease color;
+  transition: 0.1s ease color;
+}
+amp-sidebar {
+  width: 250px;
+  background-color: #182022;
+}
+amp-sidebar ul {
+  padding: 10px 0;
+}
+amp-sidebar li {
+  border-top: 1px solid #2f4043;
+}
+amp-sidebar li:last-child {
+  border-bottom: 1px solid #2f4043;
+}
+amp-sidebar li a {
+  color: #fff;
+  font-weight: bold;
+  display: block;
+  padding: 10px 20px;
+}
+amp-sidebar li a:hover {
+  color: #ccc;
+  background-color: #030404;
+}
+.categories-header {
+  background-color: #2d3d40;
+  padding: 0rem 0.8rem;
+}
+.categories-header a {
+  color: #fff;
+}
+.categories-header a:hover {
+  color: #fff;
+}
+.categories-header .breadcrumb ol li {
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+}
+.categories-header .breadcrumb ol li span {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+.categories-header .breadcrumb ol li:after {
+  content: "/";
+  color: #fff;
+  display: inline-block;
+  margin: 0 0.4rem;
+}
+.categories-header .breadcrumb ol li:last-child:after {
+  content: "";
+  margin: 0;
+}
+.entry-header {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.entry-header .flx:first-child {
+  margin: 0 1rem 0 0;
+}
+.header-cap {
+  -webkit-flex-grow: 3;
+  -webkit-box-flex: 3;
+  -moz-box-flex: 3;
+  -o-box-flex: 3;
+  -ms-box-flex: 3;
+  box-flex: 3;
+  -webkit-flex-grow: 3;
+  flex-grow: 3;
+}
+.title-cover {
+  background-color: #fff;
+  color: #2d3d40;
+  padding: 1.5rem 0.8rem 0 0.8rem;
+}
+.title-cover a {
+  font-size: 1.2rem;
+  color: #2d3d40;
+  text-align: left;
+  font-weight: bold;
+}
+.entry-title {
+  margin: 0;
+}
+.entry-meta-header {
+  font-size: 0.85rem;
+  text-align: center;
+}
+.entry-meta-header .date {
+  font-family: sans-serif;
+}
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+  color: #2d3d40;
+  text-decoration: none;
+}
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover {
+  color: #e91e63;
+}
+#container {
+  margin-left: auto;
+  margin-right: auto;
+}
+#main {
+  margin-bottom: 3em;
+  padding-left: 0;
+}
+.post {
+  margin-bottom: 3rem;
+  position: relative;
+}
+.entry-content {
+  margin: 0 0.6rem;
+  font-size: 1rem;
+}
+.entry-content h1 {
+  font-size: 1.7rem;
+  line-height: 1.5;
+  margin: 1em 0 0.8em;
+}
+.entry-content h2,
+.entry-content h3,
+.entry-content h4,
+.entry-content h5,
+.entry-content h6,
+.entry-content h2 span,
+.entry-content h3 span,
+.entry-content h4 span,
+.entry-content h5 span,
+.entry-content h6 span {
+  color: #98b8be;
+  font-weight: bold;
+}
+.entry-content h2,
+.entry-content h2 span {
+  font-size: 1.8rem;
+  line-height: 2.6rem;
+  text-align: center;
+}
+.entry-content h2 {
+  border-bottom: 2px solid #cce4e8;
+  margin: 4.5rem 0 0.5em;
+  padding: 0.8em 0;
+}
+.entry-content h3,
+.entry-content h3 span {
+  font-size: 1.6rem;
+  line-height: 2.2rem;
+  text-align: center;
+}
+.entry-content h3 {
+  margin: 3.6rem 0.8rem 3rem 0.8rem;
+  padding: 0;
+}
+.entry-content h4,
+.entry-content h4 span {
+  font-size: 1.4rem;
+  line-height: 2rem;
+  text-align: center;
+}
+.entry-content h4 {
+  margin: 3.6rem 0.8rem 3rem 0.8rem;
+  padding: 0;
+}
+.entry-content h5,
+.entry-content h5 span {
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  text-align: center;
+}
+.entry-content h5 {
+  margin: 3.6rem 0.8rem 3rem 0.8rem;
+  padding: 0;
+}
+.entry-content h6,
+.entry-content h6 span {
+  font-size: 1.1rem;
+  line-height: 1.6rem;
+  text-align: center;
+}
+.entry-content h6 {
+  margin: 3.6rem 0.8rem 3rem 0.8rem;
+  padding: 0;
+}
+.entry-content p {
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+  line-height: 2.2rem;
+  margin: 3rem 0.8rem;
+}
+.entry-content p a {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  display: inline;
+  border-bottom: 1px dashed #f1729d;
+  padding-bottom: 0.3rem;
+}
+.entry-content p a:hover {
+  border-bottom: 1px dashed #9c0f3f;
+  padding-bottom: 0.4rem;
+}
+.entry-content em {
+  background-color: #f9f5d1;
+  color: #886d00;
+  font-style: normal;
+  margin: 0 2px;
+  padding: 0.4em;
+}
+.entry-content strong {
+  color: #871c1c;
+  font-style: normal;
+  margin: 0 2px;
+  padding: 0.4em;
+  background-color: #fadcdc;
+}
+.entry-content hr {
+  border: 0;
+  border-top: 3px solid #cce4e8;
+  margin: 3rem auto;
+  width: 20%;
+}
+.entry-content img,
+.entry-content video {
+  display: block;
+  height: auto;
+  margin: auto;
+  max-width: 100%;
+}
+.entry-content iframe {
+  width: 100% ;
+}
+.entry-content blockquote {
+  margin: 3rem 0.8rem;
+  padding: 1rem 1.8rem;
+  position: relative;
+  background-color: none;
+  border-left: 3px solid #98b8be;
+  font-style: italic;
+}
+.entry-content blockquote p {
+  margin: 0.5rem 0;
+}
+.entry-content blockquote blockquote {
+  border-left: none;
+}
+.entry-content .table-wrapper {
+  margin: 3rem 0.8rem;
+}
+.entry-content table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  overflow: auto;
+  display: block;
+  font-size: 0.85rem;
+  margin: 0 auto;
+  width: auto;
+}
+.entry-content td,
+.entry-content th {
+  line-height: 1.8em;
+  padding: 0.8rem 0.8rem;
+  font-size: 0.85rem;
+}
+.entry-content td em,
+.entry-content th em,
+.entry-content td strong,
+.entry-content th strong,
+.entry-content td a,
+.entry-content th a {
+  font-size: 0.85rem;
+}
+.entry-content td {
+  border: 1px solid #c4c4c4;
+}
+.entry-content th {
+  background-color: #ecf5f7;
+  border: 1px solid #c4c4c4;
+}
+.entry-content .table-align-center {
+  text-align: center;
+}
+.entry-content .table-align-right {
+  text-align: right;
+}
+.entry-content ul,
+.entry-content ol,
+.entry-content dl {
+  margin: 3rem 0 3rem 1.6rem;
+  padding: 0;
+  list-style: none;
+  font-size: 1rem;
+}
+.entry-content ul li,
+.entry-content ol li,
+.entry-content dl li {
+  line-height: 2rem;
+  position: relative;
+  padding: 0;
+}
+.entry-content ul li p,
+.entry-content ol li p,
+.entry-content dl li p {
+  line-height: 2rem;
+  margin: 0;
+}
+.entry-content ul li p:not(:first-child),
+.entry-content ol li p:not(:first-child),
+.entry-content dl li p:not(:first-child) {
+  color: #57767c;
+  margin: 0.5rem;
+}
+.entry-content ul li ul,
+.entry-content ol li ul,
+.entry-content dl li ul,
+.entry-content ul li ol,
+.entry-content ol li ol,
+.entry-content dl li ol,
+.entry-content ul li dl,
+.entry-content ol li dl,
+.entry-content dl li dl {
+  margin: 1rem;
+}
+.entry-content ul li {
+  margin: 0.4rem 0 0.4rem 0.8rem;
+}
+.entry-content ul li::after {
+  position: absolute;
+  display: block;
+  content: '';
+  top: 0.75rem;
+  left: -1rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #cce4e8;
+  border-radius: 100%;
+}
+.entry-content ol {
+  counter-reset: number;
+}
+.entry-content ol li {
+  margin: 0.4rem 0 0.4rem 2rem;
+}
+.entry-content ol li p:first-child {
+  display: inline-block;
+  line-height: 1.6rem;
+  height: 1.6rem;
+}
+.entry-content ol li:before {
+  position: absolute;
+  display: inline-block;
+  float: left;
+  margin: 0 0.2rem 0 0;
+  padding: 0;
+  counter-increment: number;
+  content: counter(number);
+  left: -2.2rem;
+  top: 0.2rem;
+  background-color: #98b8be;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+  line-height: 1.6rem;
+}
+kbd {
+  font-family: sans-serif;
+  text-align: center;
+  display: inline-block;
+  color: #425a5e;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-border-radius: 3px;
+  -webkit-box-shadow: 0 0 10px #e8e8e8 inset, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 3px 3px #333;
+  box-shadow: 0 0 10px #e8e8e8 inset, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 3px 3px #333;
+  -webkit-box-shadow: 0 0 10px #e2e2e2 inset, 0 1px 0 #c3c3c3, 0 2px 0 #c9c9c9, 0 3px 3px #333;
+  -webkit-font-smoothing: subpixel-antialiased;
+  background: #fff;
+  border-left: 1px solid #fff;
+  border-radius: 3px;
+  border-right: 1px solid #e6e6e6;
+  border-top: 1px solid #fff;
+  font-size: 0.85rem;
+  line-height: 1rem;
+  margin: 5px;
+  padding: 6px 8px 3px;
+  text-shadow: 0 1px 0 #fff;
+  vertical-align: baseline;
+  
+}
+img.responsive-img {
+  height: auto;
+  max-width: 100%;
+}
+video.responsive-video {
+  height: auto;
+  max-width: 100%;
+}
+amp-instagram,
+amp-vimeo,
+amp-video,
+amp-youtube,
+amp-twitter,
+.soundcloud-wrapper,
+.amp-img-wrapper,
+.googleAdPost,
+.ad-footer {
+  margin: 3rem 0.8rem;
+}
+code,
+figure.highlight .code,
+pre {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+code,
+pre,
+samp {
+  font-family: Menlo, Consolas, Monaco, Consolas, monospace;
+}
+p code {
+  font-size: 1rem;
+}
+code,
+pre {
+  font-size: 0.85rem;
+  letter-spacing: 0.05rem;
+  background-color: #ecf5f7;
+  color: #007e96;
+}
+code {
+  margin: 0 3px;
+  padding: 0.4em;
+}
+samp {
+  font-size: 0.85rem;
+  letter-spacing: 0.05rem;
+}
+sub,
+sup {
+  font-size: 0.75rem;
+  line-height: 0;
+  position: relative;
+}
+sub {
+  bottom: -0.2em;
+}
+sup {
+  top: -0.5em;
+}
+pre {
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+  margin: 0 3px;
+  padding: 15px;
+  -webkit-background-clip: padding;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  border: 0;
+  line-height: 1.3rem;
+  overflow-x: auto;
+}
+pre .addition,
+pre .css .tag,
+pre .keyword,
+pre .method,
+pre .nginx .title,
+pre .request,
+pre .status,
+pre .winutils {
+  color: #66d9ef;
+}
+pre .attr_selector,
+pre .cdata,
+pre .clojure .title,
+pre .diff .change,
+pre .important {
+  color: #9882eb;
+}
+pre .preprocessor {
+  color: #9882eb;
+}
+pre .preprocessor .keyword {
+  color: #9882eb;
+}
+pre .shebang,
+pre .special,
+pre .subst {
+  color: #9882eb;
+}
+pre .symbol {
+  color: #9882eb;
+}
+pre .symbol .string {
+  color: #9882eb;
+}
+pre .attribute,
+pre .class .title,
+pre .constant,
+pre .haskell .type,
+pre .lisp .body,
+pre .parent,
+pre .smalltalk .number,
+pre .variable {
+  color: #a6e22e;
+}
+pre .built_in,
+pre .chunk,
+pre .decorator,
+pre .id,
+pre .identifier,
+pre .literal,
+pre .localvars,
+pre .title,
+pre .vhdl,
+pre .deletion {
+  color: #f92672;
+}
+pre .command,
+pre .hexcolor,
+pre .number,
+pre .phpdoc,
+pre .regexp,
+pre .string,
+pre .tag .value,
+pre .tex .formula {
+  color: #e6db74;
+}
+pre .comment,
+pre .diff .header,
+pre .doctype,
+pre .javadoc,
+pre .lisp .string,
+pre .pi,
+pre .template_comment {
+  color: #75715e;
+  font-weight: normal;
+}
+.line {
+  font-size: 0.85rem;
+  letter-spacing: 0.05rem;
+  line-height: 2rem;
+  color: #f8f8f2;
+}
+.line span {
+  font-size: 0.85rem;
+  letter-spacing: 0.05rem;
+}
+.gist {
+  background: #fff;
+  border: 1px solid color-gutter;
+  color: #f8f8f2;
+  line-height: 1.6rem;
+  margin-top: 15px;
+  overflow: auto;
+  padding: 7px 15px;
+}
+.gist .gist-file {
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 0;
+  margin: 0;
+}
+.gist .gist-file .gist-data {
+  background: 0 0;
+  border-bottom: none;
+}
+.gist .gist-file .gist-data pre {
+  font-family: Menlo, Consolas, Monaco, Consolas, monospace;
+  padding: 0 ;
+}
+.gist .gist-file .gist-meta {
+  background: 0 0;
+  color: #f8f8f2;
+  font-size: 1rem;
+  margin-top: 5px;
+  padding: 0;
+}
+.gist .gist-file .gist-meta a {
+  color: #f8f8f2;
+}
+.gist .gist-file .gist-meta a:visited {
+  color: #f8f8f2;
+}
+figure.highlight {
+  font-size: 0.95rem;
+  margin: 3rem 0.8rem;
+  background: #263338;
+  border: 1px solid color-gutter;
+  line-height: 2rem;
+  overflow: auto;
+  position: relative;
+}
+figure.highlight .code {
+  padding: 0 1em 1em 1em;
+  color: #f8f8f2;
+}
+figure.highlight .gutter {
+  display: none;
+}
+figure.highlight figcaption {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #e9e9d6;
+  background-color: #1e282c;
+  padding: 0.6em 1em;
+}
+figure.highlight figcaption a {
+  position: absolute;
+  right: 1rem;
+}
+figure.highlight figcaption:before {
+  content: "\f121";
+  font-family: "fontawesome";
+  text-align: center;
+  display: inline-block;
+  margin-right: 0.6em;
+}
+figure.highlight pre {
+  background: 0 0;
+  border: none;
+  margin: 0;
+  padding: 0.5rem;
+}
+figure.highlight table {
+  border-spacing: 0;
+  margin: 0;
+}
+figure.highlight th {
+  border: 0;
+  font-weight: 400;
+  padding: 0;
+}
+figure.highlight td {
+  border: 0;
+  font-size: 1.1rem;
+  padding: 0;
+}
+.entry-content .toc {
+  background: #fff;
+  padding: 0.5rem;
+  margin: 3rem 0;
+  border: 1px solid #cce4e8;
+  border-radius: 2px;
+}
+.entry-content .toc ul {
+  margin-bottom: 0;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #5d8b93;
+  border-radius: 2px;
+}
+.entry-content .toc ul:first-child {
+  border-top: none;
+}
+.entry-content .toc ul ul,
+.entry-content .toc ul ol {
+  margin-bottom: 0;
+  padding: 0;
+  margin: 0;
+}
+.entry-content .toc ul li {
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #5d8b93;
+}
+.entry-content .toc ul li:first-child {
+  border-top: none;
+}
+.entry-content .toc ul li::after,
+.entry-content .toc ul li::before {
+  content: normal;
+}
+.entry-content .toc ul li a {
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: block;
+  padding: 1rem;
+  background-color: #3d5b61;
+  color: #fff;
+  -webkit-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s;
+}
+.entry-content .toc ul li a:hover {
+  color: #fff;
+  background-color: #2c4145;
+}
+.entry-content .toc ul li a:before {
+  content: "\f02d";
+  font-family: "fontawesome";
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  margin-right: 0.8rem;
+}
+.entry-content .toc ul li ul,
+.entry-content .toc ul li ol {
+  margin-bottom: 0;
+  padding: 0;
+  margin: 0;
+}
+.entry-content .toc ul li ul li a,
+.entry-content .toc ul li ol li a {
+  padding: 0.5rem 0.75rem 0.5rem 2rem;
+  font-size: 0.9rem;
+  background-color: #416167;
+}
+.entry-content .toc ul li ul li a:before,
+.entry-content .toc ul li ol li a:before {
+  content: "\f0da";
+  font-family: "fontawesome";
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  margin-right: 0.6rem;
+}
+.entry-content .toc ul li ul li ul li a,
+.entry-content .toc ul li ol li ul li a {
+  padding: 0.5rem 0.75rem 0.5rem 4rem;
+}
+.entry-content .toc ul li ul li ul li a:before,
+.entry-content .toc ul li ol li ul li a:before {
+  content: none;
+}
+.meta-content {
+  background-color: #fff;
+  margin: 1.5rem 0.8rem;
+  padding: 0;
+  border-top: 1px dotted #cce4e8;
+  letter-spacing: 0.05rem;
+}
+.meta-wrapper {
+  margin: 3rem 0.8rem;
+  padding: 0;
+  background-color: #fff;
+}
+h6.tag,
+h6.categories {
+  color: #2d3d40;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.article-tag-list {
+  padding: 0;
+}
+.article-tag,
+.article-tag-list,
+.article-categories,
+.article-categories-list {
+  padding: 0;
+  margin: 0;
+}
+.article-categories {
+  margin-bottom: 1.6em;
+}
+.article-tag-list li,
+.article-categories-list li {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin: 0.2rem 0.1rem;
+}
+.article-tag-list li a,
+.article-categories-list li a {
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 0.4rem 0.8rem;
+  margin: 0;
+  background-color: #ecf5f7;
+  color: #2d3d40;
+  border-radius: 2px;
+  display: block;
+}
+.article-tag-list li a:before,
+.article-categories-list li a:before {
+  content: "#";
+}
+.article-tag-list li a:hover,
+.article-categories-list li a:hover {
+  color: #fff;
+  background-color: #2d3d40;
+}
+.widget {
+  margin: 1.5rem 0.8rem;
+  padding: 0;
+}
+.widget-h {
+  text-align: center;
+  margin: 1.6rem 0;
+}
+.widget-h h6 {
+  color: #fff;
+  background-color: #2d3d40;
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.posts-list li {
+  list-style: none;
+  margin: 0.8rem 0;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.posts-list li .posts-list-link {
+  -webkit-flex-grow: 3;
+  -webkit-box-flex: 3;
+  -moz-box-flex: 3;
+  -o-box-flex: 3;
+  -ms-box-flex: 3;
+  box-flex: 3;
+  -webkit-flex-grow: 3;
+  flex-grow: 3;
+}
+.posts-list li .posts-list-link a {
+  color: #2d3d40;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+.posts-list li .posts-list-link a:hover {
+  color: #e91e63;
+}
+.posts-list li .posts-list-meta {
+  font-size: 0.7rem;
+}
+.posts-list li .flx:first-child {
+  margin: 0 1rem 0 0;
+}
+.posts-list li amp-img {
+  border-radius: 2px;
+}
+#footer {
+  background-color: #2d3d40;
+  color: #fff;
+  display: block;
+  font-size: 1rem;
+  letter-spacing: 0.05rem;
+  line-height: 2rem;
+  margin: 3rem 0 0 0;
+  padding: 0;
+}
+.site-author-info {
+  margin: 0;
+  padding: 3rem 1.6rem;
+}
+.site-author-info h6 {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: bold;
+  display: inline-block;
+  background-color: #222f31;
+  padding: 0.4rem 0.8rem;
+}
+.site-author-info-wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -o-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.site-author-info-wrapper .flx:first-child {
+  margin: 0 1rem 0 0;
+}
+.authorCap-wrapper {
+  -webkit-flex-grow: 3;
+  -webkit-box-flex: 3;
+  -moz-box-flex: 3;
+  -o-box-flex: 3;
+  -ms-box-flex: 3;
+  box-flex: 3;
+  -webkit-flex-grow: 3;
+  flex-grow: 3;
+}
+.authorCap {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+.authorReading {
+  font-size: 0.7rem;
+}
+.site-author-desc {
+  font-size: 0.8rem;
+  line-height: 1.6rem;
+  margin: 1.4rem 0;
+}
+.copyright-tool {
+  margin: 0;
+  padding: 1.5rem 1.6rem;
+  border-top: 1px solid #384b4f;
+}
+.copyright-notice p {
+  font-size: 0.6rem;
+  letter-spacing: 0.05rem;
+  line-height: 1.2rem;
+  color: #8ba8ae;
+}
+.copyright-title {
+  font-size: 1rem;
+  text-align: center;
+  margin: 0.8rem 0 0.4rem 0;
+}
+.copyright-license {
+  margin: 0.4rem 0 0.8rem 0;
+  font-size: 0.7rem;
+  text-align: center;
+}
+.copyright-license a {
+  color: #e6e6e6;
+  font-size: 0.7rem;
+}
+.copyright-license a:hover {
+  color: #b3b3b3;
+}
+.sns-link {
+  margin: 0;
+  text-align: center;
+}
+.sns-link a {
+  display: inline-block;
+  font-size: 1.6rem;
+  text-align: center;
+  width: 2rem;
+  height: 2rem;
+  line-height: 2rem;
+  padding: 0.6rem;
+  margin: 0 0.1rem;
+  background-color: #222f31;
+  color: #fff;
+  border-radius: 4px;
+}
+.sns-link a:hover {
+  color: #ccc;
+  background-color: #030404;
+}
+.footer-menu {
+  padding: 1.5rem 0.8rem;
+  border-top: 1px solid #384b4f;
+}
+.footer-menu ul li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.footer-menu ul li a {
+  display: block;
+  padding: 0.6rem;
+  margin: 0.2rem 1.6rem;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #222f31;
+  border-radius: 4px;
+  text-align: center;
+  font-weight: bold;
+}
+.footer-menu ul li a:hover {
+  color: #ccc;
+  background-color: #030404;
+}
+.social-share {
+  margin: 1.5rem 0.8rem;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -o-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.social-share amp-social-share,
+.social-share .sbtn {
+  margin: 5px;
+}
+.sbtn {
+  padding: 0;
+  width: 4rem;
+  height: 3rem;
+  line-height: 3rem;
+  color: #fff;
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 4px;
+}
+.sbtn:hover {
+  color: #fff;
+}
+.tw {
+  background-color: #1cafe8;
+}
+.tw:hover {
+  background-color: #0f6b8f;
+}
+.fb {
+  background-color: #4f677f;
+}
+.fb:hover {
+  background-color: #283440;
+}
+.ht {
+  background-color: #35acda;
+}
+.ht:hover {
+  background-color: #1a6e8f;
+}
+.gp {
+  background-color: #d56153;
+}
+.gp:hover {
+  background-color: #9c3326;
+}
+.tb {
+  background-color: #465f79;
+}
+.tb:hover {
+  background-color: #212c38;
+}
+.icon-hatena:before {
+  content: "B";
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+#totop {
+  position: fixed;
+  bottom: 2rem;
+  right: 1.6rem;
+  font-size: 1.2rem;
+  z-index: 995;
+}
+#totop a {
+  background: rgba(152,184,190,0.6);
+  text-decoration: none;
+  color: #fff;
+  padding: 0.8rem;
+  border-radius: 50%;
+}
+#totop a:before {
+  content: "\f062";
+  font-family: "fontawesome";
+  font-size: 1.2rem;
+}
+#totop a:hover {
+  text-decoration: none;
+  background: #5d8b93;
+  color: #fff;
+  line-height: 2.3em;
+}
+@media (min-width: 800px) {
+  .title-cover,
+  .entry-content,
+  .categories,
+  .meta-content,
+  .site-author-info {
+    width: 780px;
+    margin: 0 auto;
+  }
+  .nav-container {
+    width: 800px;
+    margin: 0 auto;
+  }
+}
+@media (min-width: 0px) and (max-width: 480px) {
+  .site-author-info-wrapper {
+    display: block;
+  }
+  .gravatar-area {
+    text-align: center;
+  }
+  .gravatar-area amp-img {
+    display: inline-block;
+  }
+  .entry-content td,
+  .entry-content th {
+    line-height: 1.8em;
+    padding: 0.6rem 0.6rem;
+    font-size: 0.5rem;
+  }
+  .entry-content td em,
+  .entry-content th em,
+  .entry-content td strong,
+  .entry-content th strong,
+  .entry-content td a,
+  .entry-content th a {
+    font-size: 0.5rem;
+  }
+}
+
+	</style>
+	
+  </head>
+  <body>
+  	
+  	
+  	<!-- google analytics -->
+  	
+  	
+  	
+  	<!-- menu -->
+  	<header>
+  		<div class="nav-container">
+	  		<div class="left-nav">
+	  			<div class="header-title">
+	  				<a href="/">Blog Developer</a>
+	  			</div>
+	  		</div>
+	  		
+	  	</div>
+    </header>
+  	
+  	
+  	<!-- sidebar -->
+  	
+  	
+  	<!-- container -->
+  	<div id="container">
+	  	<div id="main">
+		    <article id="post-Huong-dan-xay-dung-gRPC-server-bang-typescript-don-gian" class="post">
+		    
+		   		<!-- categories and bread crumb -->
+		    	
+				<div class="categories-header">
+					<div class="categories">
+						<div class="breadcrumb inline-icon">
+							<ol itemscope itemtype="http://schema.org/BreadcrumbList">
+							  <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+							    <a itemprop="item" href="/">
+							    	<span class="sns-icon home-icon"></span>
+							        <span itemprop="name"><span class="fa fa-fw fa-home"></span></span>
+							    </a>
+							    <meta itemprop="position" content="1" />
+							  </li>
+
+								
+						    		<li itemprop="itemListElement" itemscope
+									      itemtype="http://schema.org/ListItem">
+									    <a itemprop="item" href="/categories/Framework/">
+									      
+									      	<span class="sns-icon folder-icon"></span>
+									      
+									      <span itemprop="name">Framework</span>
+									    </a>
+									    <meta itemprop="position" content="2" />
+									</li>
+								
+						    		<li itemprop="itemListElement" itemscope
+									      itemtype="http://schema.org/ListItem">
+									    <a itemprop="item" href="/categories/Framework/Developer/">
+									      
+									      <span itemprop="name">Developer</span>
+									    </a>
+									    <meta itemprop="position" content="3" />
+									</li>
+								
+							</ol>
+						</div>
+					</div>
+				</div>
+				
+		    
+		    	<!-- entry title -->
+				<div class="title-cover">
+					<div class="entry-header">
+						
+						
+						
+			          	<div class="header-thumb flx">
+			          		<div class="thumbImg-w circle">
+			          			<amp-img class="thumbImg" layout="fixed" width="181" height="100" src="https://i.imgur.com/bsvIC1U.png">
+			          			</amp-img>
+			          		</div>
+			          	</div>
+			            
+			            
+			            <div class="header-cap flx">
+							
+							  <h1 class="article-title entry-title" itemprop="name">
+							    <a href="https://ntpntp1997.github.io/Huong-dan-xay-dung-gRPC-server-bang-typescript-don-gian/" target="_blank" itemprop="url">Hướng dẫn xây dựng gRPC server bằng typescript đơn giản</a>
+							  </h1>
+							
+						</div>
+					</div>
+					
+					<!-- datePublished -->
+					<div class="entry-meta-header">
+						<span class="meta-elements date">
+							<span class="fa fa-fw fa-clock-o"></span>
+							<time datetime="2020-04-25" itemprop="datePublished">2020.04.25</time>
+						</span>
+					</div>
+				</div>
+				
+				
+				
+				<!-- entry content -->
+			    <div class="entry-content ecp">
+			    	<!-- social share button -->
+			    	
+			    	
+			    	
+                    <!-- google Adsense Matched content -->
+                    
+                    
+			    	<!-- content -->
+			  		<p>B&#xE0;i Vi&#x1EBF;t &#x111;ang &#x111;&#x1B0;&#x1EE3;c c&#x1EAD;p nh&#x1EAD;t</p><p>D&#x1EA1;o n&#xE0;y m&#xEC;nh l&#xE0; m&#x1ED9;t d&#x1EF1; &#xE1;n microservices v&#xE0; c&#xF3; g&#x1EB7;p ph&#x1EA3;i c&#xE1;c v&#x1EA5;n &#x111;&#x1EC1; v&#x1EC1; giao ti&#x1EBF;p gi&#x1EEF;a c&#xE1;c service trong kh&#x1ED1;i microservices v&#x1EDB;i nhau</p><p>H&#x1EB3;n ch&#xFA;ng ta ai c&#x169;ng quen l&#xE0;m vi&#x1EC7;c v&#x1EDB;i c&#xE1;c REST API. Tuy nhi&#xEA;n, trong m&#xF4;i tr&#x1B0;&#x1EDD;ng microservice, vi&#x1EC7;c s&#x1EED; d&#x1EE5;ng REST API &#x111;&#x1EC3; giao ti&#x1EBF;p gi&#x1EEF;a c&#xE1;c service s&#x1EBD; g&#xE2;y ra &#x111;&#x1ED9; tr&#x1EC5; &#x111;&#xE1;ng k&#x1EC3;. gRPC ra &#x111;&#x1EDD;i &#x111;&#x1EC3; gi&#x1EA3;i quy&#x1EBF;t v&#x1EA5;n &#x111;&#x1EC1; n&#xE0;y. Trong blog n&#xE0;y m&#xEC;nh s&#x1EBD; tr&#xEC;nh b&#xE0;y n&#x1ED9;i dung c&#x1A1; b&#x1EA3;n li&#xEA;n quan &#x111;&#x1EBF;n gRPC v&#xE0; l&#xE0;m m&#x1ED9;t todo list app demo &#x111;&#x1EC3; ch&#xFA;ng ta bi&#x1EBF;t c&#xE1;ch s&#x1EED; d&#x1EE5;ng gRPC trong th&#x1EF1;c t&#x1EBF; nh&#xE9;.</p><h2 id="gRPC-la-gi"><a href="#gRPC-la-gi" class="headerlink" title="gRPC l&#xE0; g&#xEC; ???"></a>gRPC l&#xE0; g&#xEC; ???</h2><p>gRPC l&#xE0; m&#x1ED9;t RPC platform &#x111;&#x1B0;&#x1EE3;c ph&#xE1;t tri&#x1EC3;n b&#x1EDF;i Google nh&#x1EB1;m t&#x1ED1;i &#x1B0;u ho&#xE1; v&#xE0; t&#x103;ng t&#x1ED1;c vi&#x1EC7;c giao ti&#x1EBF;p gi&#x1EEF;a c&#xE1;c service v&#x1EDB;i nhau trong ki&#x1EBF;n tr&#xFA;c microservice.</p><p>gRPC d&#xF9;ng Protocal Buffer gi&#x1EA3;m k&#xED;ch th&#x1B0;&#x1EDB;c request v&#xE0; response data, RPC &#x111;&#x1EC3; &#x111;&#x1A1;n gi&#x1EA3;n ho&#xE1; trong vi&#x1EC7;c t&#x1EA1;o ra c&#xE1;c giao ti&#x1EBF;p gi&#x1EEF;a c&#xE1;c service v&#x1EDB;i nhau, HTTP/2 &#x111;&#x1EC3; t&#x103;ng t&#x1ED1;c g&#x1EED;i/nh&#x1EAD;n HTTP request.</p><p>C&#xF3; th&#x1EC3; hi&#x1EC3;u n&#xF4;m na gRPC l&#xE0; t&#x1B0;&#x1A1;ng t&#x1EF1; nh&#x1B0; REST d&#xF9;ng &#x111;&#x1EC3; giao ti&#x1EBF;p gi&#x1EEF;a c&#xE1;c service, tuy nhi&#xEA;n t&#x1ED1;c &#x111;&#x1ED9; gRPC nhanh h&#x1A1;n REST r&#x1EA5;t nhi&#x1EC1;u, b&#xF9; l&#x1EA1;i gRPC kh&#xF3; s&#x1EED; d&#x1EE5;ng v&#xE0; r&#x1B0;&#x1EDD;m r&#xE0; h&#x1A1;n. B&#x1EA1;n ch&#x1EC9; n&#xEA;n s&#x1EED; d&#x1EE5;ng gRPC khi c&#xF3; v&#x1EA5;n &#x111;&#x1EC1; v&#x1EC1; &#x111;&#x1ED9; tr&#x1EC5; trong vi&#x1EC7;c giao ti&#x1EBF;p gi&#x1EEF;a c&#xE1;c service trong ki&#x1EBF;n tr&#xFA;c microservice.</p><h3 id="Tai-sao-nen-su-dung-gRPC"><a href="#Tai-sao-nen-su-dung-gRPC" class="headerlink" title="T&#x1EA1;i sao n&#xEA;n s&#x1EED; d&#x1EE5;ng gRPC ???"></a>T&#x1EA1;i sao n&#xEA;n s&#x1EED; d&#x1EE5;ng gRPC ???</h3><p>V&#x1EA5;n &#x111;&#x1EC1; l&#xE0; g&#xEC; v&#xE0; t&#x1EA1;i sao c&#x1EA7;n n&#xF3; ?</p><p>RPC c&#xF3; th&#x1EC3; &#x111;&#x1B0;&#x1EE3;c xem l&#xE0; m&#x1ED9;t giao th&#x1EE9;c request-respone th&#xF4;ng th&#x1B0;&#x1EDD;ng tuy nhi&#xEA;n n&#xF3; &#x111;&#x1B0;&#x1EE3;c d&#xF9;ng cho vi&#x1EC7;c giao ti&#x1EBF;p gi&#x1EEF;a c&#xE1;c server v&#x1EDB;i nhau (server-server) nhi&#x1EC1;u h&#x1A1;n l&#xE0; client-server. Vi&#x1EC7;c n&#xE0;y c&#xF3; &#xFD; ngh&#x129;a r&#x1EA5;t quan tr&#x1ECD;ng v&#xEC; trong c&#xE1;c h&#x1EC7; th&#x1ED1;ng ph&#xE2;n t&#xE1;n (distributed system), application code &#x1EDF; nhi&#x1EC1;u server h&#x1A1;n l&#xE0; m&#x1ED9;t server. V&#xED; d&#x1EE5; th&#x1B0;&#x1EDD;ng th&#x1EA5;y nh&#x1EA5;t ch&#xED;nh l&#xE0; ki&#x1EBF;n tr&#xFA;c Microservices.</p><p>&#x110;i&#x1EC1;u n&#xE0;y ngh&#x129;a l&#xE0;: m&#x1ED9;t request ph&#xED;a client c&#xF3; th&#x1EC3; s&#x1EBD; ph&#x1EA3;i c&#x1EA7;n nhi&#x1EC1;u service ch&#x1EA1;y tr&#xEA;n c&#xE1;c server n&#xE0;y &#x111;&#x1EC3; t&#x1ED5;ng h&#x1EE3;p th&#xF4;ng tin r&#x1ED3;i m&#x1EDB;i response cho client. S&#x1EF1; li&#xEA;n l&#x1EA1;c gi&#x1EEF;a c&#xE1;c server l&#xFA;c n&#xE0;y s&#x1EBD; l&#xE0; v&#x1EA5;n &#x111;&#x1EC1; m&#xE0; tr&#x1B0;&#x1EDB;c &#x111;&#xF3; t&#x1EA5;t c&#x1EA3; service ch&#x1EA1;y tr&#xEA;n 1 server th&#xEC; kho&#x1EBB; re, v&#xEC; local call n&#xEA;n ch&#x1EB3;ng ng&#x1EA1;i g&#xEC; c&#x1EA3;. Ch&#xED;nh x&#xE1;c l&#xE0; khi &#x111;&#xF3;, khi m&#x1ED9;t server mu&#x1ED1;n &#x201C;n&#xF3;i chuy&#x1EC7;n&#x201D; v&#x1EDB;i server kh&#xE1;c s&#x1EBD; c&#x1EA7;n ph&#x1EA3;i encode data (JSON, XML), ph&#xED;a nh&#x1EAD;n c&#x169;ng ph&#x1EA3;i l&#xE0;m c&#xF4;ng vi&#x1EC7;c ng&#x1B0;&#x1EE3;c l&#x1EA1;i l&#xE0; decode data m&#x1EDB;i hi&#x1EC3;u th&#x1EB1;ng kia n&#xF3;i g&#xEC; v&#x1EDB;i m&#xEC;nh r&#xF4;i l&#x1EA1;i ph&#x1EA3;i encode l&#x1EA1;i ti&#x1EBF;p. Vi&#x1EC7;c n&#xE0;y ti&#xEA;u t&#x1ED1;n kh&#xE1; nhi&#x1EC1;u t&#xE0;i nguy&#xEA;n x&#x1EED; l&#xFD; (CPU) m&#xE0; l&#x1EBD; ra ch&#x1EC9; c&#x1EA7;n l&#xE0;m &#x1EDF; b&#x1B0;&#x1EDB;c &#x111;&#x1EA7;u v&#xE0; cu&#x1ED1;i (&#x111;&#x1EA7;u nh&#x1EAD;n v&#xE0; tr&#x1EA3; v&#x1EC1; cu&#x1ED1;i c&#xF9;ng).</p><p>T&#x1ED1;i &#x1B0;u cho vi&#x1EC7;c &#x201C;giao ti&#x1EBF;p&#x201D; gi&#x1EEF;a c&#xE1;c server l&#xE0; l&#xFD; do gRPC ra &#x111;&#x1EDD;i.</p><p>&#x110;&#x1EC3; gi&#x1EA3;i b&#xE0;i to&#xE1;n tr&#xEA;n, gRPC &#x111;&#xE3; s&#x1EED; d&#x1EE5;ng binary &#x111;&#x1EC3; truy&#x1EC1;n &#x111;i thay v&#xEC; ph&#x1EA3;i encode ch&#xFA;ng th&#xE0;nh c&#xE1;c ng&#xF4;n ng&#x1EEF; trung gian JSON/XML. Vi&#x1EC7;c n&#xE0;y r&#xF5; r&#xE0;ng &#x111;&#xE3; l&#xE0;m t&#x103;ng t&#x1ED1;c giao ti&#x1EBF;p c&#xE1;c servers l&#xEA;n r&#x1EA5;t nhi&#x1EC1;u, gi&#x1EA3;m overhead cho CPUs. Google c&#x169;ng &#x201C;ti&#x1EC7;n tay&#x201D; l&#xE0;m lu&#xF4;n c&#x1EA3; protobuf (protocol buffers), &#x111;&#xE2;y l&#xE0; ng&#xF4;n ng&#x1EEF; m&#xE0; gRPC d&#xF9;ng nh&#x1B0; m&#x1ED9;t default serialization format. Implement ph&#x1EA7;n n&#xE0;y th&#x1EAD;t s&#x1EF1; ph&#x1EA3;i l&#xE0; tay to l&#x1EAF;m n&#xEA;n Google x&#x1EED; d&#x1EE5;ng protobuf nh&#x1B0; m&#x1ED9;t script trung gian &#x111;&#x1EC3; generate ph&#x1EA7;n hard core cho c&#xE1;c dev &#x1EDF; c&#xE1;c ng&#xF4;n ng&#x1EEF; ph&#x1ED5; bi&#x1EBF;n nh&#x1B0;: C++, C#, Go, Java, Pyhon.</p><p>Th&#x1EE9; gi&#xFA;p gRPC giao ti&#x1EBF;p binary ngon v&#x1EAD;y ch&#xED;nh l&#xE0; http/2, &#x111;&#xE2;y v&#x1ED1;n l&#xE0; giao th&#x1EE9;c c&#xF3; r&#x1EA5;t nhi&#x1EC1;u c&#x1EA3;i ti&#x1EBF;n so v&#x1EDB;i http/1.1. B&#x1EA3;n th&#xE2;n http/2 c&#x169;ng &#x111;&#x1B0;&#x1EE3;c coi nh&#x1B0; l&#xE0; s&#x1EF1; thay th&#x1EBF; cho SPDY, giao th&#x1EE9;c m&#xE0; c&#x169;ng ch&#xED;nh Google ph&#xE1;t tri&#x1EC3;n, open source v&#xE0;o 2012 v&#xE0; ng&#x1EEB;ng h&#x1ED7; tr&#x1EE3; v&#xE0;o 2015 (http/2 c&#xF3; implement v&#xE0; thay th&#x1EBF; r&#x1ED3;i).</p><p><a href="https://viblo.asia/p/grpc-no-la-gi-va-co-nen-su-dung-hay-khong-gDVK2mAj5Lj" target="_blank" rel="noopener external nofollow noreferrer">Tham kh&#x1EA3;o th&#xEA;m t&#x1EA1;i &#x111;&#xE2;y</a></p><h2 id="Xay-dung-gRPC-server-bang-Typescript"><a href="#Xay-dung-gRPC-server-bang-Typescript" class="headerlink" title="X&#xE2;y d&#x1EF1;ng gRPC server b&#x1EB1;ng Typescript"></a>X&#xE2;y d&#x1EF1;ng gRPC server b&#x1EB1;ng Typescript</h2><h3 id="Settup-mot-project-Typescript"><a href="#Settup-mot-project-Typescript" class="headerlink" title="Settup m&#x1ED9;t project Typescript"></a>Settup m&#x1ED9;t project Typescript</h3><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir ts-grpc</span><br></pre></td></tr></tbody></table></figure><p>Kh&#x1EDF;i t&#x1EA1;o m&#x1ED9;t th&#x1B0; m&#x1EE5;c tr&#x1ED1;ng.</p><p>V&#xE0; c&#x1EA5;u tr&#xFA;c th&#x1B0; m&#x1EE5;c s&#x1EBD; c&#xF3; d&#x1EA1;ng nh&#x1B0; sau.</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">&#x251C;&#x2500;&#x2500; dist/                            <span class="comment"># Compiled files</span></span><br><span class="line">&#x251C;&#x2500;&#x2500; src/                             <span class="comment"># Source files</span></span><br><span class="line">&#x2502;   &#x251C;&#x2500;&#x2500; handlers/                    <span class="comment"># gRPC service handlers</span></span><br><span class="line">|   &#x2502;   &#x2514;&#x2500;&#x2500; greeter.ts               <span class="comment"># Greeter service definitions</span></span><br><span class="line">&#x2502;   &#x251C;&#x2500;&#x2500; proto/                       <span class="comment"># Proto files</span></span><br><span class="line">&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; greeter/                 <span class="comment"># Greeter gRPC service</span></span><br><span class="line">&#x2502;   &#x2502;   &#x2502;   &#x2514;&#x2500;&#x2500; greeter.proto</span><br><span class="line">&#x2502;   &#x2502;   &#x251C;&#x2500;&#x2500; index.ts                 <span class="comment"># Registers all the proto typescript definitions</span></span><br><span class="line">&#x2502;   &#x2514;&#x2500;&#x2500; server.ts                    <span class="comment"># Bootstrap server, add middleware (logs, graphql...)</span></span><br><span class="line">&#x251C;&#x2500;&#x2500; scripts/                         <span class="comment"># Generation tools</span></span><br><span class="line">&#x2502;   &#x2514;&#x2500;&#x2500; protoc.sh                    <span class="comment"># Script to generate protoc typescript definitions</span></span><br><span class="line">&#x2514;&#x2500;&#x2500; ...</span><br></pre></td></tr></tbody></table></figure><p>b&#xE2;y gi&#x1EDD; ch&#xFA;ng ta ti&#x1EBF;n h&#xE0;nh c&#xE0;i &#x111;&#x1EB7;t c&#xE1;c dependencies c&#x1EA7;n thi&#x1EBF;t</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br><span class="line">npm install grpc google-protobuf dotenv</span><br><span class="line">npm install typescript @types/node @types/google-protobuf @types/dotenv --save-dev</span><br></pre></td></tr></tbody></table></figure><p>&#x110;&#xE2;y l&#xE0; c&#xE1;c package ch&#xFA;ng ta c&#xE0;i</p><ul><li>grpc &#x111;&#x1EC3; d&#xF9;ng gRPC v&#x1EDB;i Node.js</li><li>google-protobuf &#x111;&#x1EC3; d&#xF9;ng Protocol Buffers (.proto) v&#x1EDB;i javascript</li><li>dotenv &#x111;&#x1EC3; load c&#xE1;c bi&#x1EBF;n m&#xF4;i tr&#x1B0;&#x1EDD;ng t&#x1EEB; file .env</li><li>TypeScript v&#xE0; c&#xE1;c g&#xF3;i m&#x1EDF; r&#x1ED9;ng c&#x1EE7;a typescript &#x111;&#x1EC3; d&#x1ECB;ch c&#xE1;c package tr&#xEA;n</li></ul><p>Ch&#xFA;ng ta s&#x1EBD; kh&#x1EDF;i t&#x1EA1;o project typescript v&#x1EDB;i l&#x1EC7;nh:</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx tsc --init</span><br></pre></td></tr></tbody></table></figure><p>Sau khi ch&#x1EA1;y l&#x1EC7;nh n&#xE0;y xong ch&#xFA;ng ta s&#x1EBD; c&#xF3; file <strong>tsconfig.json</strong> nh&#x1B0; sau:</p><figure class="highlight json"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">{</span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span>: {</span><br><span class="line">    <span class="attr">&quot;outDir&quot;</span>: <span class="string">&quot;./dist/&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;module&quot;</span>: <span class="string">&quot;commonjs&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;noImplicitAny&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;allowJs&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;esModuleInterop&quot;</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">&quot;target&quot;</span>: <span class="string">&quot;es6&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;sourceMap&quot;</span>: <span class="literal">true</span></span><br><span class="line">  },</span><br><span class="line">  <span class="attr">&quot;include&quot;</span>: [<span class="string">&quot;./src/**/*&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;exclude&quot;</span>: [<span class="string">&quot;node_modules&quot;</span>]</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><p>b&#xE2;y gi&#x1EDD; m&#x1EDF; file <strong>greeter.proto</strong> th&#xEA;m code sau &#x111;&#xE2;y</p><figure class="highlight protobuf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> greeter;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The greeting service definition.</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Greeter</span> </span>{</span><br><span class="line">  <span class="comment">// Sends a greeting</span></span><br><span class="line">  <span class="function"><span class="keyword">rpc</span> SayHello (HelloRequest) <span class="keyword">returns</span> (HelloResponse)</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// The request message containing the user&apos;s name.</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloRequest</span> </span>{</span><br><span class="line">  <span class="built_in">string</span> name = <span class="number">1</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// The response message containing the greetings</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloResponse</span> </span>{</span><br><span class="line">  <span class="built_in">string</span> <span class="class"><span class="keyword">message</span> = 1;</span></span><br><span class="line"><span class="class">}</span></span><br></pre></td></tr></tbody></table></figure><p>N&#xF3; s&#x1EBD; t&#x1EA1;o ra m&#x1ED9;t service SayHello c&#xF3; ki&#x1EC3;u d&#x1EEF; li&#x1EC7;u request l&#xE0; HelloRequest v&#x1EDB;i m&#x1ED9;t tr&#x1B0;&#x1EDD;ng d&#x1EEF; li&#x1EC7;u l&#xE0; name v&#xE0; tr&#x1EA3; v&#x1EC1; m&#x1ED9;t response v&#x1EDB;i ki&#x1EC3;u d&#x1EEF; li&#x1EC7;u l&#xE0; HelloResponse. B&#x1EA1;n c&#xF3; th&#x1EC3; xem th&#xEA;m c&#xFA; ph&#xE1;p syntax v&#x1EC1; proto 3 t&#x1EA1;i &#x111;&#xE2;y <a href="https://developers.google.com/protocol-buffers/docs/proto" target="_blank" rel="noopener external nofollow noreferrer">https://developers.google.com/protocol-buffers/docs/proto</a>.</p><h3 id="Generating-TypeScript-definitions"><a href="#Generating-TypeScript-definitions" class="headerlink" title="Generating TypeScript definitions"></a>Generating TypeScript definitions</h3><p>B&#xE2;y gi&#x1EDD; ch&#xFA;ng ta s&#x1EBD; t&#x1EA1;o ra c&#xE1;c TypeScript definitions h&#x1ED7; tr&#x1EE3; cho gRPC service &#x111;&#x1B0;&#x1EE3;c khai b&#xE1;o trong file proto. Ch&#xFA;ng ta s&#x1EBD; ti&#x1EBF;n h&#xE0;nh d&#x1ECB;ch file <strong>greeter.proto</strong> th&#xE0;nh c&#xE1;c class typescript c&#xF3; th&#x1EC3; hi&#x1EC3;u v&#xE0; s&#x1EED; d&#x1EE5;ng.</p><p>Ch&#xFA;ng ta s&#x1EBD; c&#xE0;i th&#xEA;m c&#xE1;c dependencies:</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install grpc-tools grpc_tools_node_protoc_ts --save-dev</span><br></pre></td></tr></tbody></table></figure><p>Here we installed few more dev dependencies</p><ul><li>grpc-tools t&#x1EA1;o javascript files cho proto files</li><li>grpc_tools_node_protoc_ts t&#x1EA1;o c&#xE1;c file module typescript t&#x1B0;&#x1A1;ng &#x1EE9;ng d.ts</li></ul><p>Sau khi c&#xE0;i c&#xE1;c package xong, ch&#xFA;ng ta s&#x1EBD; ti&#x1EBF;n h&#xE0;nh vi&#x1EBF;t bash script &#x111;&#x1EC3; d&#x1ECB;ch file src/proto/.proto. M&#x1EDF; file <strong>protoc.sh</strong> v&#xE0; th&#xEA;m code sau.</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">BASEDIR=$(dirname <span class="string">&quot;<span class="variable">$0</span>&quot;</span>)</span><br><span class="line"><span class="built_in">cd</span> <span class="string">&quot;<span class="variable"><!--figure7-->#123;BASEDIR}</span>&quot;</span>/../</span><br><span class="line"></span><br><span class="line">PROTOC_GEN_TS_PATH=<span class="string">&quot;./node_modules/.bin/protoc-gen-ts&quot;</span></span><br><span class="line">GRPC_TOOLS_NODE_PROTOC_PLUGIN=<span class="string">&quot;./node_modules/.bin/grpc_tools_node_protoc_plugin&quot;</span></span><br><span class="line">GRPC_TOOLS_NODE_PROTOC=<span class="string">&quot;./node_modules/.bin/grpc_tools_node_protoc&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> ./src/proto/*; <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># skip the non proto files</span></span><br><span class="line">  <span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$(basename &quot;$f&quot;)</span>&quot;</span> == <span class="string">&quot;index.ts&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">      <span class="built_in">continue</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># loop over all the available proto files and compile them into respective dir</span></span><br><span class="line">  <span class="comment"># JavaScript code generating</span></span><br><span class="line">  <span class="variable"><!--figure7-->#123;GRPC_TOOLS_NODE_PROTOC}</span> \</span><br><span class="line">      --js_out=import_style=commonjs,binary:<span class="string">&quot;<span class="variable"><!--figure7-->#123;f}</span>&quot;</span> \</span><br><span class="line">      --grpc_out=<span class="string">&quot;<span class="variable"><!--figure7-->#123;f}</span>&quot;</span> \</span><br><span class="line">      --plugin=protoc-gen-grpc=<span class="string">&quot;<span class="variable"><!--figure7-->#123;GRPC_TOOLS_NODE_PROTOC_PLUGIN}</span>&quot;</span> \</span><br><span class="line">      -I <span class="string">&quot;<span class="variable"><!--figure7-->#123;f}</span>&quot;</span> \</span><br><span class="line">      <span class="string">&quot;<span class="variable"><!--figure7-->#123;f}</span>&quot;</span>/*.proto</span><br><span class="line"></span><br><span class="line">  <span class="variable"><!--figure7-->#123;GRPC_TOOLS_NODE_PROTOC}</span> \</span><br><span class="line">      --plugin=protoc-gen-ts=<span class="string">&quot;<span class="variable"><!--figure7-->#123;PROTOC_GEN_TS_PATH}</span>&quot;</span> \</span><br><span class="line">      --ts_out=<span class="string">&quot;<span class="variable"><!--figure7-->#123;f}</span>&quot;</span> \</span><br><span class="line">      -I <span class="string">&quot;<span class="variable"><!--figure7-->#123;f}</span>&quot;</span> \</span><br><span class="line">      <span class="string">&quot;<span class="variable"><!--figure7-->#123;f}</span>&quot;</span>/*.proto</span><br><span class="line"></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></tbody></table></figure><p>Ph&#xE2;n quy&#x1EC1;n cho file <strong>protoc.sh</strong> b&#x1EB1;ng l&#x1EC7;nh sau.</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chmod +x ./scripts/protoc.sh</span><br></pre></td></tr></tbody></table></figure><p>B&#xE2;y gi&#x1EDD; ch&#x1EA1;y script tr&#xEA;n v&#xE0; n&#xF3; s&#x1EBD; tao c&#xE1;c javascript file trong src/proto/greeter. M&#x1ED7;i khi ch&#x1EC9;nh s&#x1EED;a proto file b&#x1EA1;n h&#xE3;y nh&#x1EDB; ch&#x1EA1;y l&#x1EA1;i l&#x1EC7;nh n&#xE0;y &#x111;&#x1EC3; update c&#xE1;c javascript file.</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./scripts/protoc.sh</span><br></pre></td></tr></tbody></table></figure><p>Sau &#x111;&#xF3; m&#x1EDF; file <strong>src/proto/index.ts</strong> v&#xE0; th&#xEA;m code sau</p><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&apos;./greeter/greeter_pb&apos;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&apos;./greeter/greeter_grpc_pb&apos;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> protoIndex: any = (): <span class="function"><span class="params">void</span> =&gt;</span> {};</span><br></pre></td></tr></tbody></table></figure><p>Nh&#x1EDB; l&#xE0; b&#x1EA1;n lu&#xF4;n ph&#x1EA3;i update file n&#xE0;y khi t&#x1EA1;o ra c&#xE1;c proto file m&#x1EDB;i .</p><h3 id="Tao-handlers"><a href="#Tao-handlers" class="headerlink" title="T&#x1EA1;o handlers"></a>T&#x1EA1;o handlers</h3><p>Ch&#xFA;ng ta s&#x1EBD; vi&#x1EBF;t h&#xE0;m x&#x1EED; l&#xFD; cho SayHello service, h&#xE3;y m&#x1EDF; src/handlers/greeter.ts th&#xEA;m code n&#xE0;y.</p><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> grpc <span class="keyword">from</span> <span class="string">&apos;grpc&apos;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> { HelloRequest, HelloResponse } <span class="keyword">from</span> <span class="string">&apos;./proto/greeter/greeter_pb&apos;</span>;</span><br><span class="line"><span class="keyword">import</span> {</span><br><span class="line">  GreeterService,</span><br><span class="line">  IGreeterServer,</span><br><span class="line">} <span class="keyword">from</span> <span class="string">&apos;./proto/greeter/greeter_grpc_pb&apos;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GreeterHandler</span> <span class="title">implements</span> <span class="title">IGreeterServer</span> </span>{</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">_ Greet the user nicely</span></span><br><span class="line"><span class="comment">_ <span class="doctag">@param <span class="variable">call</span></span></span></span><br><span class="line"><span class="comment">_ <span class="doctag">@param <span class="variable">callback</span></span></span></span><br><span class="line"><span class="comment">_</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">  sayHello = (</span><br><span class="line">    call: grpc.ServerUnaryCall&lt;HelloRequest&gt;,</span><br><span class="line">    callback: grpc.sendUnaryData&lt;HelloResponse&gt;</span><br><span class="line">  ): <span class="function"><span class="params">void</span> =&gt;</span> {</span><br><span class="line">    <span class="keyword">const</span> reply: HelloResponse = <span class="keyword">new</span> HelloResponse();</span><br><span class="line"></span><br><span class="line">    reply.setMessage(<span class="string">`Hello, <span class="subst"><!--figure11-->#123;call.request.getName()}</span>`</span>);</span><br><span class="line"></span><br><span class="line">    callback(<span class="literal">null</span>, reply);</span><br><span class="line">  };</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> {</span><br><span class="line">  service: GreeterService, <span class="comment">// Service interface</span></span><br><span class="line">  handler: <span class="keyword">new</span> GreeterHandler(), <span class="comment">// Service interface definitions</span></span><br><span class="line">};</span><br></pre></td></tr></tbody></table></figure><p>ch&#xFA;ng ta s&#x1EBD; th&#x1EA5;y method sayHello &#x111;&#x1B0;&#x1EE3;c implement SayHello rpc service. l&#x1EA5;y d&#x1EEF; li&#x1EC7;u name t&#x1EEB; request HelloRequest v&#xE0; chuy&#x1EC5;n th&#xE0;nh m&#x1ED9;t c&#xE2;u ch&#xE0;o ki&#x1EC3;u HelloResponse v&#xE0; tr&#x1EA3; v&#x1EC1;</p><h3 id="Khoi-tao-server"><a href="#Khoi-tao-server" class="headerlink" title="Kh&#x1EDF;i t&#x1EA1;o server"></a>Kh&#x1EDF;i t&#x1EA1;o server</h3><p>B&#xE2;y gi&#x1EDD; ch&#xFA;ng ta s&#x1EBD; kh&#x1EDF;i t&#x1EA1;o gRPC server. M&#x1EDF; file src/server.ts v&#xE0; th&#xEA;m code:</p><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&apos;dotenv/config&apos;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> grpc <span class="keyword">from</span> <span class="string">&apos;grpc&apos;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> { protoIndex } <span class="keyword">from</span> <span class="string">&apos;./proto&apos;</span>;</span><br><span class="line"><span class="keyword">import</span> greeterHandler <span class="keyword">from</span> <span class="string">&apos;./handlers/greeter&apos;</span>;</span><br><span class="line"></span><br><span class="line">protoIndex();</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> port: string | number = process.env.PORT || <span class="number">50051</span>;</span><br><span class="line"></span><br><span class="line">type StartServerType = <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">void</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> startServer: StartServerType = (): <span class="function"><span class="params">void</span> =&gt;</span> {</span><br><span class="line">  <span class="comment">// create a new gRPC server</span></span><br><span class="line">  <span class="keyword">const</span> server: grpc.Server = <span class="keyword">new</span> grpc.Server();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// register all the handler here...</span></span><br><span class="line">  server.addService(greeterHandler.service, greeterHandler.handler);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// define the host/port for server</span></span><br><span class="line">  server.bindAsync(</span><br><span class="line">    <span class="string">`0.0.0.0:<span class="subst"><!--figure12-->#123;port}</span>`</span>,</span><br><span class="line">    grpc.ServerCredentials.createInsecure(),</span><br><span class="line">    (err: <span class="built_in">Error</span>, <span class="attr">port</span>: number) =&gt; {</span><br><span class="line">      <span class="keyword">if</span> (err != <span class="literal">null</span>) {</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">console</span>.error(err);</span><br><span class="line">      }</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`gRPC listening on <span class="subst"><!--figure12-->#123;port}</span>`</span>);</span><br><span class="line">    }</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="comment">// start the gRPC server</span></span><br><span class="line">  server.start();</span><br><span class="line">};</span><br><span class="line"></span><br><span class="line">startServer();</span><br></pre></td></tr></tbody></table></figure><p>Ok, ch&#xFA;ng ta &#x111;&#xE3; t&#x1EA1;o ra c&#xE1;c instance c&#x1EE7;a greeter service, &#x111;&#x103;ng k&#xFD; greeter service handler v&#xE0; ch&#x1EA1;y server.</p><h3 id="Kiem-tra-xem-nao"><a href="#Kiem-tra-xem-nao" class="headerlink" title="Ki&#x1EC3;m tra xem n&#xE0;o"></a>Ki&#x1EC3;m tra xem n&#xE0;o</h3><p>Tr&#x1B0;&#x1EDB;c ti&#xEA;n m&#x1EDF; file <strong>package.json</strong> th&#xEA;m c&#xE1;c l&#x1EC7;nh sau v&#xE0;o ph&#x1EA7;n script:</p><figure class="highlight"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">&quot;scripts&quot;: {</span><br><span class="line">    &quot;build&quot;: &quot;npx tsc --skipLibCheck&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;npx tsc --skipLibCheck &amp;&amp; node ./dist/server.js&quot;</span><br><span class="line">}</span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure><p>Ok ch&#x1EA1;y th&#x1EED; n&#xE0;o!!!</p><figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br><span class="line">npm run start</span><br></pre></td></tr></tbody></table></figure><p>Ok b&#xE2;y gi&#x1EDD; ch&#xFA;ng ta c&#xF3; m&#x1ED9;t server gRPC ch&#x1EA1;y tr&#xEA;n port 50051</p><p>&#x110;&#x1EC3; test gRPC c&#xE1;c b&#x1EA1;n h&#xE3;y d&#xF9;ng <strong>BloomRPC</strong> &#x110;&#xE2;y l&#xE0; m&#x1ED9;t GUI t&#x1B0;&#x1A1;ng t&#x1EEF; nh&#x1B0; <strong>Postman</strong> nh&#x1B0;ng d&#xF9;ng cho c&#xE1;c api b&#x1EB1;ng gRPC. &#x110;&#x1EC3; c&#xE0;i &#x111;&#x1EB7;t c&#xE1;c b&#x1EA1;n xem h&#x1B0;&#x1EDB;ng d&#x1EAB;n <a href="https://github.com/uw-labs/bloomrpc" target="_blank" rel="noopener external nofollow noreferrer">t&#x1EA1;i &#x111;&#xE2;y</a>.</p><div class="amp-img-wrapper"><amp-img src="https://i.imgur.com/bsvIC1U.png" width="2720" height="1496" layout="responsive"></amp-img></div><p>OK &#x111;&#x1EC3; test ch&#xFA;ng ta h&#xE3;y b&#x1EAF;t &#x111;&#x1EA7;u l&#xE0;m nh&#x1B0; sau, import greeter.proto file, &#x111;&#x1ED5;i URL th&#xE0;nh 127.0.0.1:50051 v&#xE0; click v&#xE0;o icon play &#x111;&#x1EC3; t&#x1EAD;n h&#x1B0;&#x1EDF;ng =]]]] ch&#xFA;c c&#xE1;c b&#x1EA1;n th&#xE0;nh c&#xF4;ng.</p>
+			  		
+			  		<!-- google Adsense -->
+			  		
+					
+					
+					
+					
+			    	
+					
+					<!-- google Adsense Matched content -->
+			  		
+			  	</div>
+				
+		  	</article>
+		  	
+		  	
+		  	<!-- TAGS -->
+		  	
+		  	<div class="meta-content">
+				
+				<div class="widget">
+				  	<h6 class="tag"><span class="fa fa-fw fa-tag"></span>TAGS</h6>
+				  	<div class="article-tag">
+						<ul class="article-tag-list">
+							
+					    		<li class="article-tag-list-item">
+					    			<a class="article-tag-list-link" href="/tags/gRPC/">
+					    				gRPC
+					    			</a>
+					    		</li>
+							
+					    		<li class="article-tag-list-item">
+					    			<a class="article-tag-list-link" href="/tags/TypeScript/">
+					    				TypeScript
+					    			</a>
+					    		</li>
+							
+						</ul>
+					</div>
+				</div>
+				
+			</div>
+		  	
+		  	
+		  	<!-- Categories posts -->
+		  	
+		  	
+		  	
+		  	<!-- Detailed categories  posts -->
+		  	
+		  	
+		  	
+		  	<!-- Latests -->
+		  	
+			
+		</div>
+		
+		
+		<footer id="footer">
+		
+			
+			
+			
+			
+			<div class="copyright-tool">
+				
+				
+				
+				<div class="copyright-title">
+					<span>
+					&copy; 2020&nbsp;Blog Developer
+					</span>
+				</div>
+				
+				<div class="copyright-license">
+					<aside>
+						Powered by <a href="https://hexo.io/">Hexo</a>. <a href="https://github.com/tea3/hexo-generator-amp">AMP-Theme</a> designed by <a href="https://github.com/tea3/">tea</a>.
+					</aside>
+				</div>
+			</div>
+			
+		</footer>
+
+
+  	<div id="totop"><a href="#"></a></div>
+
+
+  </body>
+</html>
