@@ -45,6 +45,8 @@
     
     
     
+    <script async custom-element="amp-analytics" src="https://cdn.ampproject.org/v0/amp-analytics-0.1.js"></script>
+    
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script type="application/ld+json">
 		{
@@ -59,7 +61,7 @@
 			    "@id":"https://ntpntp1997.github.io/Huong-dan-xay-dung-mot-trang-blog-ca-nhan-don-gian-bang-Hexo-va-deploy-len-github/"
 			},
 			"datePublished": "2020-04-24T06:21:02.000Z",
-			"dateModified": "2020-04-26T19:33:27.274Z",
+			"dateModified": "2020-05-07T15:53:09.481Z",
 			
 			"image": {
 				"@type": "ImageObject",
@@ -1750,6 +1752,22 @@ h6.categories {
   	
   	<!-- google analytics -->
   	
+  	<amp-analytics type="googleanalytics" id="google-analytics">
+		<script type="application/json">
+		{
+		  "vars": {
+		    "account": "UA-164523547-1"
+		  },
+		  "triggers": {
+		    "trackPageview": {
+		      "on": "visible",
+		      "request": "pageview"
+		    }
+		  }
+		}
+		</script>
+	</amp-analytics>
+	
   	
   	
   	<!-- menu -->

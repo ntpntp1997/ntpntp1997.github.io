@@ -8,28 +8,28 @@
     </url>
 
     <url>
-        <loc>https://ntpntp1997.github.io/Huong-dan-xay-dung-gRPC-server-bang-typescript-don-gian/</loc>
-        <lastmod>2020-05-06T07:02:34.593Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-        <image:image>
-
-            <image:loc>https://ntpntp1997.github.io/images/gRPC.png</image:loc>
-
-        </image:image>
-
-    </url>
-
-    <url>
         <loc>https://ntpntp1997.github.io/Huong-dan-xay-dung-mot-trang-blog-ca-nhan-don-gian-bang-Hexo-va-deploy-len-github/</loc>
-        <lastmod>2020-04-26T19:33:27.274Z</lastmod>
+        <lastmod>2020-05-07T15:53:09.481Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
         <image:image>
 
             <image:loc>https://fech.in/static/images/cover/convert-excel-to-markdown-table.jpeg</image:loc>
+
+        </image:image>
+
+    </url>
+
+    <url>
+        <loc>https://ntpntp1997.github.io/Huong-dan-xay-dung-gRPC-server-bang-typescript-don-gian/</loc>
+        <lastmod>2020-05-07T15:52:49.794Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+        <image:image>
+
+            <image:loc>https://ntpntp1997.github.io/img/gRPC.png</image:loc>
 
         </image:image>
 
