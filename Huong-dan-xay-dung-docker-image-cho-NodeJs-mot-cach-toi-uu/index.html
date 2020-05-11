@@ -1,0 +1,324 @@
+<!DOCTYPE html><!--[if lte IE 8]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]--><!--[if (gte IE 9)|!(IE)]><!--><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi-VN" lang="vi-VN"><!--<![endif]--><head><title>Hướng dẫn xây dựng docker image cho NodeJs một cách tối ưu - Blog Developer</title><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="generator" content="Blog Developer"><meta name="author" content="Thanh Phuong"><link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico"><link rel="alternate" href="/atom.xml" title="Blog Developer" type="application/atom+xml"><link rel="stylesheet" href="/css/all.css" media="screen" type="text/css"><link rel="amphtml" href="https://ntpntp1997.github.io/Huong-dan-xay-dung-docker-image-cho-NodeJs-mot-cach-toi-uu//amp/index.html"><link rel="stylesheet" href="/highlightjs/vs.css" type="text/css"><link rel="canonical" href="https://ntpntp1997.github.io/huong-dan-xay-dung-docker-image-cho-nodejs-mot-cach-toi-uu/"><meta name="keywords" content="gRPC, typescript, protobuf, nodejs"><meta name="description " content="Khi công việc kinh doanh cần tới nhiều ứng dụng web khác nhau, khi mà bây giờ framework hay ngôn ngữ lập trình chỉ là công cụ. Các công ty không bị giới hạn và có thể sử dụng bất kỳ ngôn ngữ nào cần. Vì vậy chúng ta cần có một môi trường mà nhiều ứng dụng khác nhau có thể chạy cùng nhau trên đó.
+Virtual Machines (VM) cho phép chúng ta chạy nhiều app trên cùng 1 server. Nhưng cũng có hạn chế. Mỗi VM cần toàn bộ OS để chạy. Mỗi OS lại cần CPU, RAM,… để chạy, rồi nó cần patching và licensing, do đó làm tăng chi phí và khả năng phục hồi."><meta property="og:title" content="Hướng dẫn xây dựng docker image cho NodeJs một cách tối ưu - Blog Developer"><meta property="og:url" content="https://ntpntp1997.github.io/Huong-dan-xay-dung-docker-image-cho-NodeJs-mot-cach-toi-uu/"><meta property="og:type" content="website"><meta property="fb:app_id" content="1312420762290725"><meta property="og:description" content="Khi công việc kinh doanh cần tới nhiều ứng dụng web khác nhau, khi mà bây giờ framework hay ngôn ngữ lập trình chỉ là công cụ. Các công ty không bị giới hạn và có thể sử dụng bất kỳ ngôn ngữ nào cần. Vì vậy chúng ta cần có một môi trường mà nhiều ứng dụng khác nhau có thể chạy cùng nhau trên đó.
+Virtual Machines (VM) cho phép chúng ta chạy nhiều app trên cùng 1 server. Nhưng cũng có hạn chế. Mỗi VM cần toàn bộ OS để chạy. Mỗi OS lại cần CPU, RAM,… để chạy, rồi nó cần patching và licensing, do đó làm tăng chi phí và khả năng phục hồi."><meta property="og:image" content="/img/node-docker-logo.png"><!--[if IE 8]>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/css/ie8.css"
+    />
+  <![endif]--><script data-ad-client="ca-pub-8405511385846799" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script async src="//www.googletagmanager.com/gtag/js?id=UA-164523547-1"></script><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","UA-164523547-1")</script><script src="/js/jquery-1.11.1.min.js"></script><script>window.jQuery||document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script><!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+  <![endif]--><style>.col-md-8.col-md-offset-2.opening-statement img{display:none}</style></head><body id="index" class="lightnav animsition"><div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling"><div class="sb-close" aria-label="Close Menu" aria-hidden="true"><img src="/img/close.png" alt="Close"></div><ul class="sb-menu"><li><a href="/" class="animsition-link" title="Home">Home</a></li><li><a href="/archives" class="animsition-link" title="archive">archives</a></li><li><a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a><ul class="sb-submenu"><li><a href="http://sum.services/" rel="external nofollow noreferrer" target="_BLANK" class="animsition-link">Sum Services</a></li></ul></li><li><a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a><ul class="sb-submenu"><li><a href="/categories/Framework/Developer/" class="animsition-link">Developer<small>(1)</small></a></li><li><a href="/categories/Docker/" class="animsition-link">Docker<small>(1)</small></a></li><li><a href="/categories/Framework/" class="animsition-link">Framework<small>(2)</small></a></li><li><a href="/categories/Framework/gRPC/TypeScript/NodeJs/" class="animsition-link">NodeJs<small>(1)</small></a></li><li><a href="/categories/Framework/gRPC/TypeScript/" class="animsition-link">TypeScript<small>(1)</small></a></li><li><a href="/categories/Framework/gRPC/" class="animsition-link">gRPC<small>(1)</small></a></li></ul></li><li><a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a><ul class="sb-submenu"><li><a href="https://www.facebook.com/nguyenthanhphuong.ntp" target="_blank" rel="external nofollow noreferrer noopener" class="animsition-link">My Facebook</a></li></ul></li></ul><ul class="sb-menu secondary"><li><a href="javascript:;" rel="external nofollow noreferrer" class="popup-trigger" title="Search"><span class="search-icon"></span>Search</a></li><li><a href="/about/index.html" class="animsition-link" title="about">About</a></li><li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li></ul></div><div id="sb-site"><div id="navigation" class="navbar navbar-fixed-top"><div class="navbar-inner"><div class="container"><div class="logo"><a href="/" title="Logo" class="animsition-link"><img src="/img/logo.png" alt="Logo" width="35px;"></a></div><nav><ul class="nav"><li><a href="/" class="animsition-link">Blog Developer</a></li><li class="nolink"><span>Always </span>Creative.</li><li><a href="https://github.com/ntpntp1997" rel="external nofollow noreferrer" title="Github" target="_blank"><i class="icon-github"></i></a></li><li><a href="https://www.facebook.com/nguyenthanhphuong.ntp" rel="external nofollow noreferrer" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li><li class="nolink"><span>Welcome!</span></li></ul></nav></div><div class="learnmore sb-toggle-right">More</div><button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More"><span class="sr-only">Toggle navigation</span> <span class="icon-bar before"></span> <span class="icon-bar main"></span> <span class="icon-bar after"></span></button></div></div></div><div class="post-banner-header"><img src="/img/node-docker-logo.png" alt="thumnail"></div><section id="intro"><div class="container"><div class="row col-md-offset-2"><div class="col-md-8"><span class="post-meta"><time datetime="2020-05-06T08:26:10.000Z" itemprop="datePublished">2020-05-06 </time>| <a href="/tags/Docker/">Docker</a>, <a href="/tags/Nodejs/">Nodejs</a></span><h1>Hướng dẫn xây dựng docker image cho NodeJs một cách tối ưu</h1></div></div><div class="col-md-8 col-md-offset-2"><h2 id="Tai-sao-ban-nen-su-dung-Docker"><a href="#Tai-sao-ban-nen-su-dung-Docker" class="headerlink" title="Tại sao bạn nên sử dụng Docker?"></a>Tại sao bạn nên sử dụng Docker?</h2><p>Khi công việc kinh doanh cần tới nhiều ứng dụng web khác nhau, khi mà bây giờ framework hay ngôn ngữ lập trình chỉ là công cụ. Các công ty không bị giới hạn và có thể sử dụng bất kỳ ngôn ngữ nào cần. Vì vậy chúng ta cần có một môi trường mà nhiều ứng dụng khác nhau có thể chạy cùng nhau trên đó.</p><p>Virtual Machines (VM) cho phép chúng ta chạy nhiều app trên cùng 1 server. Nhưng cũng có hạn chế. Mỗi VM cần toàn bộ OS để chạy. Mỗi OS lại cần CPU, RAM,… để chạy, rồi nó cần patching và licensing, do đó làm tăng chi phí và khả năng phục hồi.</p><p>Google bắt đầu sử dụng mô hình container từ lâu để giải quyết các thiếu sót của mô hình VM. Về cơ bản thì mô hình container có nghĩa là nhiều container trên cùng một máy chủ sử dụng cùng một máy chủ, giải phóng CPU, RAM để có thể được sử dụng ở nơi khác.</p><h2 id="Docker-rat-tot-vay-tai-sao-phai-toi-uu-docker-image"><a href="#Docker-rat-tot-vay-tai-sao-phai-toi-uu-docker-image" class="headerlink" title="Docker rất tốt vậy tại sao phải tối ưu docker image ?"></a>Docker rất tốt vậy tại sao phải tối ưu docker image ?</h2><p>Câu trả lời rất đơn giản: Là để tiết kiệm.<br>Tiết kiệm cái gì? Bất cứ cái gì gọi là tài nguyên và có thể tiết kiệm được thì chúng ta sẽ tiết kiệm. Ví dụ:</p><ul><li>Thời gian</li><li>Dung lượng lưu trữ</li><li>Tài nguyên chạy (CPU, RAM)</li><li>Băng thông</li></ul><p>Bây giờ 1 image bạn build ra, bạn phải mất thời gian build nó, mất dung lượng lưu trữ để chứa nó, tài nguyên để chạy nó, và băng thông để phân phối nó tới các máy chủ. Vậy tối ưu tức là tiết kiệm những thứ kể trên.</p><p>Nói thì nói vậy, tuy nhiên hầu hết chúng ta đều chả quan tâm đếch gì đến mấy cái thứ đó, vì nó không thực tế và gần gũi với những thứ chúng ta làm hàng ngày. Nhưng nếu bạn ở vào hoàn cảnh phải chờ đợi mòn mỏi 10 phút để đẩy hotfix lên server, bạn sẽ biết quý trọng thời gian, hay quản lý một hệ thống khoảng 50 container đang chạy, thì số tiền bạn bỏ ra cho việc phung phí tài nguyên là sẽ không nhỏ.</p><h2 id="Hien-trang"><a href="#Hien-trang" class="headerlink" title="Hiện trạng"></a>Hiện trạng</h2><p>Hãy bắt đầu với với hiện trạng của mình trước đây bằng 1 Dockerfile chạy <strong>NodeJS</strong> đơn giản.</p><script src="//gist.github.com/669fc326a1014db67c1f36f9d6a00780.js"></script><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker image ls -a | grep app</span><br><span class="line">app   lattest         c9bbbeb45eca        13 minutes ago      1.25GB</span><br></pre></td></tr></table></figure><p>Image này build mất 4 phút và nặng tới 1.25GB. Thật không thể tin được. Có gì đó sai sai ở đây rồi, ứng dụng của mình chỉ là một ứng dụng API chạy bằng expressjs hết sức nhẹ mà.</p><p>Chưa hết, mình thử thay đổi 1 file README.md trong project, sau đó thử build lại thì vẫn mất 3 phút (do không phải download lại base image). Image của mình được build lại toàn bộ, bắt nguồn từ dòng ADD . /app, bao gồm cả việc install dependencies, build app,… Trong khi README.md thì liên quan gì tới ứng dụng của mình đâu để phải mất bao nhiêu thời gian và tài nguyên build lại image như thế?</p><p>Hệ thống của mình còn chạy CI/CD nên với việc setup Dockerfile phía trên, mỗi lần chạy mình mất 15 phút để code có thể chạy được trên server. WTF?</p><h2 id="Ket-qua"><a href="#Ket-qua" class="headerlink" title="Kết quả"></a>Kết quả</h2><p>Sau 1 hồi tìm tòi học hỏi và tối ưu, giờ đây image app của mình chỉ nặng vỏn vẹn 150MB thay vì 1.25GB như trước, mất 1p30s để build lần đầu tiên, và chỉ 10s để build mỗi khi mình thay đổi code chút ít. Quá trình CI/CD cũng từ đó rút ngắn xuống 8 phútcho lần đầu tiên và chỉ 3 phút cho các thay đổi code sau này thay vì cứ đều như vắt chanh 15 phút 1 lần như trước.<br>Vậy mình đã làm gì?</p><h2 id="Toi-uu-the-nao"><a href="#Toi-uu-the-nao" class="headerlink" title="Tối ưu thế nào?"></a>Tối ưu thế nào?</h2><p>Giờ khi đã hiểu tại sao phải tối ưu, ta bước đến bước khó khăn hơn là tối ưu thế nào. Đây là một số bước chính mình đã làm để có thể tối ưu được quá trình build này. Ngoài ra còn 1 vài cái lặt vặt nữa như remove file tạm,… thì tạm không nhắc tới.</p><h2 id="Thay-doi-base-image"><a href="#Thay-doi-base-image" class="headerlink" title="Thay đổi base image"></a>Thay đổi base image</h2><p>Đây là bước đầu tiên và quan trọng nhất, trừ khi hoàn cảnh không cho phép hoặc image không có sẵn, nếu không hãy luôn sử dụng image được dựng trên alpine. Đây là những base image nhẹ nhất, tối ưu nhất cho việc lưu trữ mà vẫn đủ điều kiện để app của chúng ta chạy ngon lành.</p><p>Thay vì sử dụng FROM node:10, mình đã chuyển qua sử dụng FROM node:10-alpine</p><p>Các image dựng trên alpine có dung lượng rất nhẹ, với nodejs là giảm từ 900MB của bản mặc định xuống chỉ còn 70MB của alpine.</p><p>Điểm trừ duy nhất của alpine đó là việc nó quá nhỏ gọn nên bạn phải tự túc cài thêm những thư viện bạn cần dùng. Và việc này với những người mới là khá rắc rối đó nhé.</p><h2 id="Tan-dung-layer-caching"><a href="#Tan-dung-layer-caching" class="headerlink" title="Tận dụng layer caching"></a>Tận dụng layer caching</h2><p>Layer caching là một tính năng rất quan trọng giúp giảm thời gian của quá trình build bằng cách tận dụng những layer đã được build từ lần trước đó (với điều kiện không có thay đổi trong chỉ định build). Để có thể tận dụng tối đa tính năng này, ta cần sắp xếp lại và tách lệnh build sao cho phần lệnh ít thay đổi sẽ ở trên, phần thay đổi thường xuyên sẽ ở dưới.</p><p>Đây là điều mình đã làm với Dockerfile trên:</p><script src="//gist.github.com/409bf4999d05fa6b07eca5d549d75819.js"></script><p>Mình đã chuyển EXPOSE 3000 lên trên cùng với WORKDIR /app, tách phần ADD . /app ra để thêm 1 chỉ định ADD package.json yarn.lock /app/. Do 2 file package.json và yarn.lock chứa thông tin về những package mình dùng nhưng lại ít thay đổi, do đó đẩy nó lên trên sẽ giúp việc cài đặt dependencies từ npm có thể sử dụng lại từ image đã build từ trước.</p><p><strong>Tips: Sắp xếp các lệnh build theo sự thay đổi thường xuyên tăng dần</strong></p><h2 id="Giam-bot-so-luong-layer"><a href="#Giam-bot-so-luong-layer" class="headerlink" title="Giảm bớt số lượng layer"></a>Giảm bớt số lượng layer</h2><p>Như chúng ta đều đã biết, docker image được dựng nên từ những layer xếp chồng lên nhau, mỗi layer được tạo ra từ các câu lệnh chúng ta viết trong Dockerfile. Càng nhiều layer thì image của chúng ta càng nặng nề. Chính vì vậy việc giảm thiểu tối đa số lượng layer chính là cách để tối ưu dung lượng image.</p><p>Có 3 câu lệnh sẽ tạo ra các layer mới là RUN, COPY và ADD, nên việc gộp lệnh này chỉ có tác dụng với 3 lệnh này nhé. Trong ví dụ trên, mình đã gộp những câu lệnh sau thành 1 lệnh, do đó chỉ tạo ra 1 layer duy nhất:</p><script src="//gist.github.com/e0b904e351e6dc7ce15e2647cd8eaa2f.js"></script><p>Một lưu ý khi các bạn ứng dụng biện pháp này, đó chính là việc gộp lại thành 1 dòng sẽ làm mất đi ưu thế của caching layer khi build. Bạn đâu muốn chỉ vì một thay đổi nhỏ mà dẫn tới image bị build lại từ những bước đầu chả liên quan đúng không? Do vậy trước ghi gộp, hãy tính tới những thay đổi bạn có thể tạo ra cho ứng dụng, và tối ưu việc caching layer cần được ưu tiên hơn.</p><h2 id="Toi-uu-dockerignore"><a href="#Toi-uu-dockerignore" class="headerlink" title="Tối ưu .dockerignore"></a>Tối ưu .dockerignore</h2><p>Như mình đã nói trong 1 số bài viết khác, file .dockerignore sinh ra với mục đích báo cho docker biết để loại trừ những file này ra khỏi build context, tức là loại ra khỏi những file mà docker định dùng để build image.</p><p>Để tránh việc bạn sửa 1 file README.md chả liên quan mà cũng khiến image của bạn phải build lại, hãy thêm nó vào .dockerignore. Sau đây là 1 số loại file nên đưa vào .dockerignore</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Environment variables</span></span><br><span class="line">.env</span><br><span class="line"></span><br><span class="line"><span class="comment"># Logs</span></span><br><span class="line">logs</span><br><span class="line">*.<span class="built_in">log</span></span><br><span class="line">npm-debug.log*</span><br><span class="line"></span><br><span class="line"><span class="comment"># Documentation</span></span><br><span class="line">docs</span><br><span class="line">*.md</span><br><span class="line"></span><br><span class="line"><span class="comment"># Coverage directory used by tools like istanbul</span></span><br><span class="line">coverage</span><br><span class="line"></span><br><span class="line"><span class="comment"># nyc test coverage</span></span><br><span class="line">.nyc_output</span><br><span class="line"></span><br><span class="line"><span class="comment"># Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)</span></span><br><span class="line">.grunt</span><br><span class="line"></span><br><span class="line"><span class="comment"># node-waf configuration</span></span><br><span class="line">.lock-wscript</span><br><span class="line"></span><br><span class="line"><span class="comment"># Dependency directories</span></span><br><span class="line">node_modules</span><br><span class="line">jspm_packages</span><br><span class="line"></span><br><span class="line"><span class="comment"># Optional npm cache directory</span></span><br><span class="line">.npm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Optional REPL history</span></span><br><span class="line">.node_repl_history</span><br><span class="line"></span><br><span class="line"><span class="comment"># Dist folder (code after build)</span></span><br><span class="line">dist</span><br><span class="line"></span><br><span class="line"><span class="comment"># Project file</span></span><br><span class="line">*.sublime-project</span><br><span class="line">*.sublime-workspace</span><br><span class="line"></span><br><span class="line"><span class="comment"># Git file</span></span><br><span class="line">.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># Docker file</span></span><br><span class="line">*Dockerfile*</span><br><span class="line">*docker-compose*</span><br><span class="line"></span><br><span class="line"><span class="comment"># Deploy folder and file</span></span><br><span class="line">deploy</span><br><span class="line">.gitlab-ci.yml</span><br></pre></td></tr></table></figure><h2 id="Su-dung-multi-stage-build"><a href="#Su-dung-multi-stage-build" class="headerlink" title="Sử dụng multi-stage build"></a>Sử dụng multi-stage build</h2><p>Đây là phương pháp cuối cùng mình đề cập trong bài viết này. Multi-stage build được giới thiệu từ docker v17.05, là một cách rất mới để các bạn tối ưu được runtime image của mình bằng việc loại bỏ đi toàn bộ những thứ được sinh ra trong quá trình install, build code,… nhưng lại không cần thiết cho quá trình chạy ứng dụng. Trở lại với ví dụ trong bài, mình sẽ tách image cũ thành 2 image trên một Dockerfile như sau:</p><script src="//gist.github.com/a72188859b94ef68b527b2dbcf3eaabf.js"></script><p>Với việc tách image như thế này. Image runtime của mình chỉ nặng 160MB mà không phải là 400MB như việc chỉ sử dụng 1 image.</p><p>Tuy nhiên cái lợi nào cũng đi cùng cái giá của nó. Chúng ta có thể giảm được dung lượng runtime image, nhưng lại mất đi 1 tính năng hết sức quan trọng là layer caching. Việc docker chỉ lưu lại image kết quả cuối cùng mà không lưu builder image làm toàn bộ công tách rồi ghép lệnh của chúng ta đổ sông đổ bể.</p><p>Nhưng các bạn đừng vội bảo mình tại sao lại xúi bạn tách ghép lệnh làm gì. Việc gì khó cũng có cách giải quyết, chỉ là nó hơi mất công 1 chút. Chúng ta hoàn toàn có thể lưu lại được builder image và dùng nó làm cache cho lần build sau bằng 1 lệnh build kèm –target như sau:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t app:builder --target=builder .</span><br></pre></td></tr></table></figure><p>Chỉ định –target sẽ giúp quá trình build dừng lại ở bước builder, từ đó chúng ta sẽ có 1 image builder ngon nghẻ để cache cho lần sau rồi.</p><p>Tips: Multi stage build giúp tiết kiệm tài nguyên cho quá trình runtime, nhưng lại tốn thêm tài nguyên lưu trữ thời gian trong quá trình build. Tuy nhiên từ kinh nghiệm cá nhân của mình thì việc này hoàn toàn xứng đáng đánh đổi.</p><h2 id="Ngoai-le-ve-cach-quan-ly-microservice-image"><a href="#Ngoai-le-ve-cach-quan-ly-microservice-image" class="headerlink" title="Ngoài lề về cách quản lý microservice image"></a>Ngoài lề về cách quản lý microservice image</h2><p>Đến đây coi như mình đã nói xong với các bạn về cách tối ưu docker image trong prodcution phục vụ cả quá trình build và runtime. Tiện thể mình sẽ chia sẻ luôn về cách mình quản lý mấy chục image hiện tại của sản phẩm.</p><p>Các bạn nếu đã làm microservice, nhất là với số lượng lớn đều sẽ nhận thấy một vấn đề đó chính là việc quản lý image của toàn bộ các microservice là rất mất thời gian và vất vả. Với khoảng 20 microservice, trong đó có 17 service backend và 3 service frontend thì số lượng image na ná nhau là rất nhiều.</p><p>Giả sử bạn muốn thêm vào toàn bộ các image backend một file chứa thời gian image đó được build chẳng hạn. Khi đó bạn sẽ phải sửa lại 17 project backend chỉ để copy paste lại đúng 1 dòng. Nghe nản không?</p><p>Rất may là docker có giới thiệu một chỉ thị có tên là ONBUILD. Doc của nó <a href="https://docs.docker.com/engine/reference/builder/#onbuild" target="_blank" rel="noopener external nofollow noreferrer">tại đây</a>. Vậy ONBUILD có tác dụng gì trong trường hợp này?</p><p>ONBUILD là chỉ thị tạo ra 1 trigger, nôm na là 1 điểm chờ. Khi mình build image X có chứa chỉ thị ONBUILD thì lệnh phía sau ONBUILD sẽ không được thực thi mà sẽ chờ đợi. Cho đến khi image X được dùng làm base image cho 1 image khác thì lệnh sau ONBUILD mới được thực thi.</p><p>Ví dụ:</p><script src="//gist.github.com/9306d132926f5571127279f0ad86b0b7.js"></script><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t <span class="built_in">test</span> .</span><br><span class="line">Sending build context to Docker daemon  2.048kB</span><br><span class="line">Step 1/3 : FROM node:10-alpine</span><br><span class="line"> ---&gt; df48b68da02a</span><br><span class="line">Step 2/3 : ONBUILD ADD package.json yarn.lock /app/</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 91fb4e71156f</span><br><span class="line">Removing intermediate container 91fb4e71156f</span><br><span class="line"> ---&gt; efb9bf8fe2a9</span><br><span class="line">Step 3/3 : ONBUILD RUN yarn --pure-lockfile</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 22441a427546</span><br><span class="line">Removing intermediate container 22441a427546</span><br><span class="line"> ---&gt; 9a57cb7773e0</span><br><span class="line">Successfully built 9a57cb7773e0</span><br><span class="line">Successfully tagged <span class="built_in">test</span>:latest</span><br></pre></td></tr></table></figure><p>Như các bạn thấy, trong image test mình vừa build không hề có file package.json hay yarn.lock nào cả, chỉ là một lệnh chờ đợi được tạo ra mà thôi.<br>Giờ trong project code của mình thì Dockerfile mình sẽ viết:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FROM <span class="built_in">test</span></span><br></pre></td></tr></table></figure><p>Và đây là kết quả khi build</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ docker build -t app .</span><br><span class="line">Sending build context to Docker daemon  513.5kB</span><br><span class="line">Step 1/1 : FROM builder</span><br><span class="line"><span class="comment"># Executing 2 build triggers</span></span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 775275b026e1</span><br><span class="line">yarn install v1.9.4</span><br><span class="line">Done <span class="keyword">in</span> 29.47s.</span><br><span class="line">Removing intermediate container 775275b026e1</span><br><span class="line"> ---&gt; 1903e4902d84</span><br><span class="line">Successfully built 1903e4902d84</span><br><span class="line">Successfully tagged app:latest</span><br></pre></td></tr></table></figure><p>Và cho tới lúc này, 2 lệnh mà mình cần là ADD package.json yarn.lock /app/ và RUN yarn –pure-lockfile mới thật sự được thực thi. Vậy là trong project của mình không cần phải định nghĩa lại Dockerfile nữa, chỉ việc sử dụng 1 template do mình tạo ra cho toàn bộ các service là được.</p><p>Điều này giúp tiết kiệm thời gian maintain toàn bộ mấy chục service image, cũng giúp mình tiết kiệm thời gian build, do những thứ lặp đi lặp lại như việc cài đặt môi trường đã được lưu trong image template rồi.</p><h2 id="Ket-luan"><a href="#Ket-luan" class="headerlink" title="Kết luận"></a>Kết luận</h2><p>Để tối ưu các bạn nên quan tâm đến 6 điều nàyL</p><ul><li>Chọn base image trên nền alpine để dung lượng tối ưu nhất</li><li>Sắp xếp Dockerfile để tận dụng layer caching giúp giảm thời gian build</li><li>Gộp các câu lệnh RUN, ADD, COPY có liên quan với nhau để giảm số layer mới</li><li>Tối ưu .dockerignore file để loại bỏ những file không cần thiết trong quá trình build image</li><li>Sử dụng multi-stage build để giảm dung lượng runtime image</li><li>Dùng chung image template bằng việc sử dụng ONBUILD cho base image giúp tiết kiệm công sức quản lý và thời gian build.<br>Cám ơn các bạn đã đọc hết bài viết của mình!</li></ul><p>Nguồn tham khảo : <a href="https://topdev.vn/blog/docker-image-in-production-cau-chuyen-1gb-hay-100mb/" target="_blank" rel="noopener external nofollow noreferrer">TopDev</a></p><div class="clearfix"></div><hr class="nogutter"></div><nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination"><a class="pull-right" href="/Huong-dan-xay-dung-gRPC-server-bang-typescript-don-gian/">Hướng dẫn xây dựng gRPC server bằng typescript đơn giản →</a></nav><div class="col-md-8 col-md-offset-2 col-sm-24"><div id="fb-root"></div><script>!function(e,t,o){var n,r=e.getElementsByTagName(t)[0];e.getElementById(o)||((n=e.createElement(t)).id=o,n.src="//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1&appId=1312420762290725&autoLogAppEvents=1&colorscheme=dark&order_by=time",r.parentNode.insertBefore(n,r))}(document,"script","facebook-jssdk")</script><section id="comments"><div class="fb-comments" data-href="
+https://ntpntp1997.github.io/Huong-dan-xay-dung-docker-image-cho-NodeJs-mot-cach-toi-uu/" data-numposts="10"></div></section></div></div></section><footer><div class="container"><div class="copy"><p>&copy; 2014<script>2010<(new Date).getFullYear()&&document.write("-"+(new Date).getFullYear())</script>, Content By Thanh Phuong. All Rights Reserved.</p><p>Theme By <a href="//go.kieran.top" target="_blank" rel="noopener" style="color:#767d84">Kieran</a></p></div><div class="social"><ul><li><a href="https://github.com/ntpntp1997" rel="external nofollow noreferrer" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li><li><a href="https://www.facebook.com/nguyenthanhphuong.ntp" rel="external nofollow noreferrer" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li></ul></div><div class="clearfix"></div></div></footer><script type="text/javascript">var resizeHero=function(){var e=$(".cover,.heightblock"),i=$(window);e.css({height:i.height()})};resizeHero(),$(window).resize(function(){resizeHero()})</script><script src="/js/plugins.min.js"></script><script src="/js/scripts.js"></script><link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css"><script src="/fancybox/jquery.fancybox.pack.js"></script><script type="text/javascript">$("#intro").find("img").each(function(){var a=this.alt;a&&$(this).after('<span class="caption" style="display:none">'+a+"</span>"),$(this).wrap('<a href="'+this.src+'" title="'+a+'" class="fancybox" rel="gallery" />')}),jQuery(".fancybox").fancybox()</script><style>.local-search-popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;padding:0;background:rgba(255,255,255,.9);color:#333;z-index:9999;border-radius:5px;overflow:scroll}#local-search-input{width:100%;border:none;outline:0;border-bottom:1px solid #151515;background-color:initial}.search-result-list{list-style:none;padding-left:0}.search-result-list>li{margin-top:15px;border-bottom:1px solid #ddd;transition:all ease .3s}.search-result-list>li:hover{border-bottom:1px solid gray}.search-result-title{font-size:16px}.search-result{line-height:20px}.search-keyword{font-weight:400;color:#c00}@media (min-width:890px){.popup-btn-close{position:absolute;top:15px;left:35px;border:1px solid #151515;padding:0 10px;border-top-left-radius:8px;cursor:pointer;transition:all ease .3s}.popup-btn-close:hover{background:#151515;opacity:.9;color:#fff}}@media (max-width:890px){.popup-btn-close{font-size:0;position:fixed;right:20px;bottom:50px;width:50px;height:50px;background:#fff;border-radius:50%;box-shadow:1px 1px 5px #888;cursor:pointer}.popup-btn-close::after{content:'←';color:#151515;position:absolute;top:0;left:0;font-size:20px;width:100%;height:100%;line-height:50px;text-align:center}}</style><div class="popup search-popup local-search-popup"><span class="popup-btn-close">ESC</span><div class="container"><div class="col-md-8 col-md-offset-2"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><div class="local-search-input-wrapper"><input autocomplete="off" placeholder="Search..." type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></div><script src="/js/ziploader.js"></script><script type="text/javascript">// Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.json";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').fadeOut(300);
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $('.popup').fadeIn(300);
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // get search zip version
+    $.get('/searchVersion.txt?t=' + (+new Date()), function(res) {
+      if (localStorage.getItem('searchVersion') !== res) {
+        localStorage.setItem('searchVersion', res);
+        initSearchJson();
+      }
+    });
+
+    function initSearchJson () {
+      initLoad(['/search.zip'], {
+        loadOptions: {
+          success: function(obj) {
+            localStorage.setItem('searchJson', obj['search.json'])
+          },
+          error: function(e) {
+            return console.log(e)
+          }
+        },
+        returnOptions: {
+          'json': TYPE_TEXT
+        },
+        mimeOptions:{
+          'json':'application/json'
+        }
+      })
+    }
+
+
+    // search function;
+    var searchFunc = function(search_id, content_id) {
+      'use strict';
+
+      isfetched = true;
+      var datas = JSON.parse(localStorage.getItem('searchJson'));
+      console.log(search_id)
+      var input = document.getElementById(search_id);
+      var resultContent = document.getElementById(content_id);
+      var inputEventFunction = function() {
+        var searchText = input.value.trim().toLowerCase();
+        var keywords = searchText.split(/[\s\-]+/);
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        var resultItems = [];
+        if (searchText.length > 0) {
+          // perform local searching
+          datas.forEach(function(data) {
+            var isMatch = false;
+            var hitCount = 0;
+            var searchTextCount = 0;
+            var title = data.title ? data.title.trim() : '';
+            var titleInLowerCase = title.toLowerCase();
+            var content = data.content ? data.content.trim().replace(/<[^>]+>/g,"") : '';
+            var contentInLowerCase = content.toLowerCase();
+            var articleUrl = decodeURIComponent(data.url);
+            var indexOfTitle = [];
+            var indexOfContent = [];
+            // only match articles with not empty titles
+            keywords.forEach(function(keyword) {
+              function getIndexByWord(word, text, caseSensitive) {
+                var wordLen = word.length;
+                if (wordLen === 0) {
+                  return [];
+                }
+                var startPosition = 0, position = [], index = [];
+                if (!caseSensitive) {
+                  text = text.toLowerCase();
+                  word = word.toLowerCase();
+                }
+                while ((position = text.indexOf(word, startPosition)) > -1) {
+                  index.push({position: position, word: word});
+                  startPosition = position + wordLen;
+                }
+                return index;
+              }
+
+              indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+              indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+            });
+            if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+              isMatch = true;
+              hitCount = indexOfTitle.length + indexOfContent.length;
+            }
+
+            // show search results
+
+            if (isMatch) {
+              // sort index by position of keyword
+
+              [indexOfTitle, indexOfContent].forEach(function (index) {
+                index.sort(function (itemLeft, itemRight) {
+                  if (itemRight.position !== itemLeft.position) {
+                    return itemRight.position - itemLeft.position;
+                  } else {
+                    return itemLeft.word.length - itemRight.word.length;
+                  }
+                });
+              });
+
+              // merge hits into slices
+
+              function mergeIntoSlice(text, start, end, index) {
+                var item = index[index.length - 1];
+                var position = item.position;
+                var word = item.word;
+                var hits = [];
+                var searchTextCountInSlice = 0;
+                while (position + word.length <= end && index.length != 0) {
+                  if (word === searchText) {
+                    searchTextCountInSlice++;
+                  }
+                  hits.push({position: position, length: word.length});
+                  var wordEnd = position + word.length;
+
+                  // move to next position of hit
+
+                  index.pop();
+                  while (index.length != 0) {
+                    item = index[index.length - 1];
+                    position = item.position;
+                    word = item.word;
+                    if (wordEnd > position) {
+                      index.pop();
+                    } else {
+                      break;
+                    }
+                  }
+                }
+                searchTextCount += searchTextCountInSlice;
+                return {
+                  hits: hits,
+                  start: start,
+                  end: end,
+                  searchTextCount: searchTextCountInSlice
+                };
+              }
+
+              var slicesOfTitle = [];
+              if (indexOfTitle.length != 0) {
+                slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+              }
+
+              var slicesOfContent = [];
+              while (indexOfContent.length != 0) {
+                var item = indexOfContent[indexOfContent.length - 1];
+                var position = item.position;
+                var word = item.word;
+                // cut out 100 characters
+                var start = position - 20;
+                var end = position + 80;
+                if(start < 0){
+                  start = 0;
+                }
+                if (end < position + word.length) {
+                  end = position + word.length;
+                }
+                if(end > content.length){
+                  end = content.length;
+                }
+                slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+              }
+
+              // sort slices in content by search text's count and hits' count
+
+              slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                  return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                  return sliceRight.hits.length - sliceLeft.hits.length;
+                } else {
+                  return sliceLeft.start - sliceRight.start;
+                }
+              });
+
+              // select top N slices in content
+
+              var upperBound = parseInt('2');
+              if (upperBound >= 0) {
+                slicesOfContent = slicesOfContent.slice(0, upperBound);
+              }
+
+              // highlight title and content
+
+              function highlightKeyword(text, slice) {
+                var result = '';
+                var prevEnd = slice.start;
+                slice.hits.forEach(function (hit) {
+                  result += text.substring(prevEnd, hit.position);
+                  var end = hit.position + hit.length;
+                  result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                  prevEnd = end;
+                });
+                result += text.substring(prevEnd, slice.end);
+                return result;
+              }
+
+              var resultItem = '';
+
+              if (slicesOfTitle.length != 0) {
+                resultItem += "<li><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+              } else {
+                resultItem += "<li><a target='_blank' href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+              }
+
+              slicesOfContent.forEach(function (slice) {
+                resultItem += "<a target='_blank' href='" + articleUrl + "'>" +
+                  "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                  "...</p>" + "</a>";
+              });
+
+              resultItem += "</li>";
+              resultItems.push({
+                item: resultItem,
+                searchTextCount: searchTextCount,
+                hitCount: hitCount,
+                id: resultItems.length
+              });
+            }
+          })
+        };
+        if (keywords.length === 1 && keywords[0] === "") {
+          resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+        } else if (resultItems.length === 0) {
+          resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+        } else {
+          resultItems.sort(function (resultLeft, resultRight) {
+            if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+              return resultRight.searchTextCount - resultLeft.searchTextCount;
+            } else if (resultLeft.hitCount !== resultRight.hitCount) {
+              return resultRight.hitCount - resultLeft.hitCount;
+            } else {
+              return resultRight.id - resultLeft.id;
+            }
+          });
+          var searchResultList = '<ul class=\"search-result-list\">';
+          resultItems.forEach(function (result) {
+            searchResultList += result.item;
+          })
+          searchResultList += "</ul>";
+          resultContent.innerHTML = searchResultList;
+        }
+      }
+
+      if ('auto' === 'auto') {
+        input.addEventListener('input', inputEventFunction);
+      } else {
+        $('.search-icon').click(inputEventFunction);
+        input.addEventListener('keypress', function (event) {
+          if (event.keyCode === 13) {
+            inputEventFunction();
+          }
+        });
+      }
+
+      // remove loading animation
+      $('body').css('overflow', '');
+
+      proceedsearch();
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        $('.sb-close').click();
+        searchFunc('local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });</script><script>((window.gitter={}).chat={}).options={room:"ntpntp1997-github-io/techtalk"}</script><script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script><script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BGIF-nevndimBG_qolCIfvKkPCEB1lX8orFiANy1SyN09kDtwmdEb_zer0UqBSwRWcCoWjOM7ObLl6zMqXl58YA');</script></body></html>
