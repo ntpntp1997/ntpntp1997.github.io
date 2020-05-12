@@ -3,6 +3,20 @@
 
 
     <url>
+        <loc>https://ntpntp1997.github.io/tags/gRPC/</loc>
+        <lastmod>2020-05-12T10:43:58.077Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>https://ntpntp1997.github.io/tags/TypeScript/</loc>
+        <lastmod>2020-05-12T10:43:58.077Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>https://ntpntp1997.github.io/tags/Docker/</loc>
         <lastmod>2020-05-11T09:34:02.744Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -12,20 +26,6 @@
     <url>
         <loc>https://ntpntp1997.github.io/tags/Nodejs/</loc>
         <lastmod>2020-05-11T09:34:02.744Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://ntpntp1997.github.io/tags/gRPC/</loc>
-        <lastmod>2020-05-11T08:41:57.764Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>https://ntpntp1997.github.io/tags/TypeScript/</loc>
-        <lastmod>2020-05-11T08:41:57.764Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
